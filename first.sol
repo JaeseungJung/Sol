@@ -17,4 +17,6 @@ contract FirstContract {
    
 }
 
+// fallback~ 스마트컨트랙트에 이더를 입금하게 하는 코드
+
 
