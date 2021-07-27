@@ -22,6 +22,113 @@ pure, view는
 가스피가 소모되지 않는다.
 
 
+[솔리디티 버전]
+솔리디티 코드에서 최상단
+pragma solidity >=0.4.22 <0.6.0;
+식으로 작성되며
+구버전은 값의 한계때문에 오버플로우/언더플로우 문제점이 있었음.
+예를 들어 오버플로우의 경우 일정 범위를 넘게 되면 숫자가 초기화 되는 식.
+이러한 문제점들을 개선하기 위해 지속적으로 솔리디티는 버전이 업그레이드 되고 있다.
+
+
+
 [코인과 토큰의 차이]
+
+<token.sol> 분석
+  string public constant name = "name";
+    string public constant symbol = "ABC";
+    uint8 public constant decimals = 0;  
+:이름,심볼,소수점
+
+event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+event Transfer(address indexed from, address indexed to, uint tokens);
+: event 승인, 전송에서 사용되는 변수
+토큰 소유자 주소, spender, 토큰 수
+보내는 사람 주소, 받는 사람 주소, 토큰 수
+
+mapping(address => uint256) balances;
+mapping(address => mapping (address => uint256)) allowed;
+:맵핑
+
+constructor
+msg.sender: 배포자의 주소
+해당하는 주소의 숫자값에 변수를 대입함.
+
+balances[msg.sender] = totalSupply_;
+:배포자에게 총 발행량에 해당하는 모든 토큰이 지급됨.
+
+=> 총 발행량을 발행하는 사람이 정할 수 있으며 배포 시
+모두 발행자에게 지급됨.
+
+
+
+  function balanceOf(address tokenOwner) public view returns (uint) {
+        return balances[tokenOwner];
+    }
+:토큰 소유자의 잔고를 불러옴
+
+
+
+    function transfer(address receiver, uint numTokens) public returns (bool) {
+        require(numTokens <= balances[msg.sender]);
+        balances[msg.sender] = balances[msg.sender].sub(numTokens);
+        balances[receiver] = balances[receiver].add(numTokens);
+        emit Transfer(msg.sender, receiver, numTokens);
+        return true;
+    }
+:토큰 전송
+
+
+   function transfer(address receiver, uint numTokens) public returns (bool) {
+        require(numTokens <= balances[msg.sender]);
+        balances[msg.sender] = balances[msg.sender].sub(numTokens);
+        balances[receiver] = balances[receiver].add(numTokens);
+        emit Transfer(msg.sender, receiver, numTokens);
+        return true;
+    }
+
+>>
+function transfer(address receiver, uint numTokens) public returns (bool) 
+: 함수 transfer는 수신자의 주소, 토큰의 수량을 파라미터로 받는다.
+그리고나서 true/false(bool)를 반환한다.
+
+require(numTokens <= balances[msg.sender]);
+:보내는 토큰의 수량(numTokens)보다 토큰 전송자의 토큰 잔고( balances[msg.sender])
+가 더 커야 함.
+
+ balances[msg.sender] = balances[msg.sender].sub(numTokens);
+:보내는 토큰의 수량(numTokens)만큼 토큰 전송자의 잔고( balances[msg.sender])를 
+감소(sub)시킴.
+
+balances[receiver] = balances[receiver].add(numTokens);
+:수신자의 토큰 잔고(balances[receiver])를 송신자가 전송한 토큰의 수량만큼 증가(add)시킴.
+
+
+
+토큰 배포 후 전송하면
+수신자는 토큰 스마트컨트랙트 주소를 추가해야
+메타마스크에서 수신한 토큰을 확인 할 수 있다.
+
+
+
+[코인과 토큰 차이]
+코인 전송시 
+전송자는 받는 사람 주소, 보낼 코인의량을 설정하고 
+보내게 된다.
+이 경우 EOA(외부 소유 계정)에서 EOA로 전송되므로
+수신자는 전송된 코인 만큼 어카운트의 코인이 증가하고
+송신자는 전송한 코인 만큼 감소하게된다.
+
+토큰의 경우에는
+수신자 EOA를 입력하고 보낼 토큰의 수량을 설정하고 보내게 된다.
+하지만 토큰 전송이 완료 되어도 수신자는 자신이 토큰을 받았는지 확인할 수 없다.
+토큰의 스마트컨트랙트 주소를 메타마스크에서 추가해야 비로소 수신자가
+토큰을 얼마나 받았는지 확인 할 수 있다.
+토큰의 스마트컨트랙트 내에 수신자가의 밸런스가 기록되기 때문이다.
+
+
+
+
+
 
 
