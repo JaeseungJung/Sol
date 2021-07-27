@@ -33,6 +33,7 @@ pragma solidity >=0.4.22 <0.6.0;
 
 
 [코인과 토큰의 차이]
+- 어카운트와 트랜잭션 관점에서.
 
 <token.sol> 분석
   string public constant name = "name";
