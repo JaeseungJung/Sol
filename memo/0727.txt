@@ -1,2 +1,27 @@
 오전 9:00 2021-07-27
 
+Account {
+nonce:
+balance:
+code:
+storage:
+}
+
+Tx {
+to:
+value:
+gas:
+data:
+}
+
+
+[Sol]
+pure, view는
+트랜잭션이 아니며
+읽어오거나 연산만 할 뿐.
+가스피가 소모되지 않는다.
+
+
+[코인과 토큰의 차이]
+
+
