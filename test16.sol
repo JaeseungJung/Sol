@@ -2,16 +2,13 @@ pragma solidity 0.8.6;
 
 contract Bank {
     
-   
    constructor() payable {
        
     }
     
-    
     function donate () public payable {
          
     }
-    
     
        function balanceOfBank() view public returns (uint){
         return address(this).balance;

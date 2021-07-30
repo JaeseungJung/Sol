@@ -4,10 +4,16 @@ pragma solidity 0.8.6;
 contract Test6 {
     
     constructor() payable {
+        msg.sender == owner;
         
     }
     
-    function destroy() public {
+    modifier onlyOwner () {
+  require(msg.sender == owner);
+  _;
+}
+
+    function destroy() public onlyOwner {
         selfdestruct(payable(msg.sender));
     }
     

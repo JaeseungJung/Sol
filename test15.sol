@@ -16,7 +16,7 @@ contract Token {
     }
     
     function transfer(address _to, uint _value) public returns (bool) {
-        num = balances[msg.sender] = _value;
+        num = balances[msg.sender] - _value;
         require(balances[msg.sender] - _value >= 0);
         balances[msg.sender] -= _value;
         balances[_to] += _value;
