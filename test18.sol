@@ -38,3 +38,5 @@ contract Attack{
         Test18().withdraw();
     }
 }
+
+// fallback 함수로 강제 실행. 
