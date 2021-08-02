@@ -40,3 +40,4 @@ function isAbsence (address msg.sender) public {
 // _createStudent에서 생성한 student 구조체에 접근해서 1로 바꿔 주고 싶습니다. 
 
 // 함수 allReset 에서는 새로운날 출석 여부를 나타내는  attendance 값을 모두 0으로 바꿔 초기화 하고 싶습니다. 
+
