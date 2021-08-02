@@ -23,12 +23,24 @@
     ></table>
 
     <div style="margin-left: 20px">
-      from: <input type="text" id="fromId" /> to:
-      <input type="text" id="toId" /> value:<input
+      from: <input type="text" id="fromId" placeholder="보내는 사람" /> to:
+      <input type="text" id="toId" placeholder="받는 사람" /> value:<input
         type="number"
         id="sendValue"
+        placeholder="이더 수량(eth)"
       />
       <button id="send_btn" onclick="sendAction()">send</button>
+    </div>
+
+    <div style="margin: 20px 0px 0px 20px">
+      <input type="text" id="pw" placeholder="비밀번호" />
+      <button id="create_btn" onclick="createNewAccount()">계정생성</button>
+    </div>
+
+    <div style="margin: 20px 0px 0px 20px">
+      <input type="text" id="unlockAcc" placeholder="계정" />
+      <input type="text" id="unlockPw" placeholder="비밀번호" />
+      <button id="create_btn" onclick="UnlockAccount()">잠금해제</button>
     </div>
 
     <script type="text/javascript" src="./lib/bignumber.min.js"></script>
@@ -84,13 +96,21 @@
         window.location.reload();
       }
 
-      function createNewAccount(pw) {
-        web3.personal.newAccount(pw);
+      let create_Pw = document.getElementById("pw").value;
+
+      function createNewAccount(create_Pw) {
+        web3.personal.newAccount(create_Pw);
         getAccounts();
       }
 
-      function UnlockAccount(account, pw) {
-        web3.personal.UnlockAccount(account, pw);
+      // unlockAcc
+      // unlockPw
+
+      let unlock_Acc = document.getElementById("unlockAcc").value;
+      let unlock_Pw = document.getElementById("unlockPw").value;
+
+      function UnlockAccount(unlock_Acc, unlock_Pw) {
+        web3.personal.UnlockAccount(unlock_Acc, unlock_Pw);
       }
 
       function getBlock(blockNum) {
