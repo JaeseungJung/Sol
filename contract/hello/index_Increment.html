@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Document</title>
+
+    <!-- web font -->
+    <style type="text/css"> @font-face { 
+      font-family: 'yg-jalnan'; 
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); 
+      font-weight: normal; font-style: normal; } </style>
+  
+  </head>
+  <body>
+    
+        <div class="col-md-4 col-md-offset-4">
+          <div style="margin: 20px 0px 0px 50px">
+            <button class="btn-info"  id="txCheck_btn" onclick="getCount()">
+              블록넘버
+            </button>
+            <input type="text" id="BlocknumField" placeholder="Block number" />
+          </div>
+          <table
+            id="txTable"
+            class="table table-info table-striped"
+            style="margin: 20px 0 50px 50px; width: 50%"
+          ></table>
+        </div>
+      </div>
+    </div>
+
+    
+    <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+    <script type="text/javascript" src="./lib/web3.js"></script>
+
+    <script type="text/javascript">
+      if (typeof web3 !== "undefined") {
+        web3 = new Web3(web3.currentProvider);
+      } else {
+        // set the provider you want from Web3.providers
+        web3 = new Web3(
+          new Web3.providers.HttpProvider("http://localhost:8545")
+        );
+      }
+
+      if (web3.isConnected()) {
+        console.log("connected");
+      } else {
+        console.log("not connected");
+      }
+
+      web3.eth.defaultAccount = web3.eth.accounts[0];
+
+      let abi = [
+        {
+          inputs: [],
+          name: "getBlockNumber",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ];
+
+      let contractAddrerss = "0x22dD902237a0a98906c2CB07F789bcf1185eea77";
+
+
+      let smartContract = web3.eth.contract(abi).at(contractAddrerss);
+
+
+
+      function getCount(){
+      smartContract.getCount.call(function (error, result) {
+        console.log(result.toNumber());
+        let blockNum = result.toNumber();
+
+        document.getElementById("BlocknumField").value = blockNum;
+      })};
+      getCount()
+    </script>
+  </body>
+
+
+ <style>
+   .btn-info {
+    font-family: 'yg-jalnan'; 
+   }
+
+    .btn-info:hover {
+    font-family: 'yg-jalnan'; 
+    color: #fff;
+    background-color: #2a4b62;
+    border-color: #264459;
+}
+  </style>
+
+
+
+  
+</html>

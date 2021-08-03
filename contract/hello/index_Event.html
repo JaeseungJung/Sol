@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Document</title>
+
+    <!-- web font -->
+    <style type="text/css"> @font-face { 
+      font-family: 'yg-jalnan'; 
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); 
+      font-weight: normal; font-style: normal; } </style>
+  
+  </head>
+  <body>
+    
+        <div class="col-md-4 col-md-offset-4">
+          <div style="margin: 20px 0px 0px 50px">
+            <button class="btn-info"  id="txCheck_btn" onclick="setInstructor()">
+              setInstructor
+            </button>
+            <!-- <input type="text" id="BlocknumField" placeholder="Block number" /> -->
+          </div>
+          <table
+            id="txTable"
+            class="table table-info table-striped"
+            style="margin: 20px 0 50px 50px; width: 50%"
+          ></table>
+        </div>
+      </div>
+    </div>
+
+    
+    <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+    <script type="text/javascript" src="./lib/web3.js"></script>
+
+    <script type="text/javascript">
+      if (typeof web3 !== "undefined") {
+        web3 = new Web3(web3.currentProvider);
+      } else {
+        // set the provider you want from Web3.providers
+        web3 = new Web3(
+          new Web3.providers.HttpProvider("http://localhost:8545")
+        );
+      }
+
+      if (web3.isConnected()) {
+        console.log("connected");
+      } else {
+        console.log("not connected");
+      }
+
+      // web3.eth.defaultAccount = web3.eth.accounts[0];
+
+      let abi = [
+        {
+          inputs: [],
+          name: "getBlockNumber",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ];
+      
+      let contractAddress = "0x4f10AC1318E3263B801c4163aa6C3A9dFbE9129f"
+
+      let contract = web3.eth.contract(abi).at(contractAddress)
+
+      let instructorEvent = contract.Instructor();
+
+      let name = []
+
+      instructorEvent.watch(function(error, result){
+      console.log(result.args);
+      })
+
+      function setInstructor() {
+    	contract.setInstructor.sendTransaction("hyun", 11, {from: web3.eth.accounts[0]}, function (err, hash) {
+	    });
+      }
+    </script>
+  </body>
+
+
+ <style>
+   .btn-info {
+    font-family: 'yg-jalnan'; 
+   }
+
+    .btn-info:hover {
+    font-family: 'yg-jalnan'; 
+    color: #fff;
+    background-color: #2a4b62;
+    border-color: #264459;
+}
+  </style>
+
+
+
+  
+</html>

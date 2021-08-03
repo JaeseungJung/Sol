@@ -16,11 +16,31 @@
     <title>Document</title>
   </head>
   <body>
-    <table
-      id="dataTable"
-      class="table table-dark table-striped"
-      style="margin: 20px 0 50px 50px; width: 50%"
-    ></table>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <table
+            id="dataTable"
+            class="table table-dark table-striped"
+            style="margin: 20px 0 50px 50px; width: 50%"
+          ></table>
+        </div>
+
+        <div class="col-md-4 col-md-offset-4">
+          <div style="margin: 20px 0px 0px 50px">
+            <input type="text" id="txHashField" placeholder="tx hash" />
+            <button id="txCheck_btn" onclick="UnlockAccount1()">
+              트랜잭션 조회
+            </button>
+          </div>
+          <table
+            id="txTable"
+            class="table table-info table-striped"
+            style="margin: 20px 0 50px 50px; width: 50%"
+          ></table>
+        </div>
+      </div>
+    </div>
 
     <div style="margin-left: 20px">
       from: <input type="text" id="fromId" placeholder="보내는 사람" /> to:
@@ -29,18 +49,18 @@
         id="sendValue"
         placeholder="이더 수량(eth)"
       />
-      <button id="send_btn" onclick="sendAction()">send</button>
+      <button id="send_btn">send</button>
     </div>
 
     <div style="margin: 20px 0px 0px 20px">
-      <input type="text" id="pw" placeholder="비밀번호" />
+      <input type="password" id="pw" placeholder="비밀번호" />
       <button id="create_btn" onclick="createNewAccount()">계정생성</button>
     </div>
 
     <div style="margin: 20px 0px 0px 20px">
       <input type="text" id="unlockAcc" placeholder="계정" />
       <input type="text" id="unlockPw" placeholder="비밀번호" />
-      <button id="create_btn" onclick="UnlockAccount()">잠금해제</button>
+      <button id="unlock_btn" onclick="UnlockAccount1()">잠금해제</button>
     </div>
 
     <script type="text/javascript" src="./lib/bignumber.min.js"></script>
@@ -62,55 +82,63 @@
         console.log("not connected");
       }
 
-      let accounts = web3.eth.accounts;
+      function loadAccounts() {
+        let accounts = web3.eth.accounts;
 
-      let list = "";
-      let balance;
+        let list = "";
+        let balance;
 
-      for (var i = 0; i < accounts.length; i++) {
-        balance =
-          web3.fromWei(web3.eth.getBalance(accounts[i])).toNumber() + "ETH";
-        list +=
-          "<tr><td>" + accounts[i] + "</td> <td>" + balance + "</td> </tr>";
+        for (var i = 0; i < accounts.length; i++) {
+          balance =
+            web3.fromWei(web3.eth.getBalance(accounts[i])).toNumber() + "ETH";
+          list +=
+            "<tr><td>" + accounts[i] + "</td> <td>" + balance + "</td> </tr>";
+        }
+
+        document.getElementById("dataTable").innerHTML = list;
       }
 
-      document.getElementById("dataTable").innerHTML = list;
+      loadAccounts();
 
-      console.log(accounts);
+      // console.log(accounts);
 
-      console.log(web3.fromWei(balance).toNumber() + "ETH");
+      // console.log(web3.fromWei(balance).toNumber() + "ETH");
 
       function sendAction() {
         let fromValue = document.getElementById("fromId").value;
         let toValue = document.getElementById("toId").value;
         let amountValue = document.getElementById("sendValue").value;
 
-        console.log(amountValue);
+        // console.log(amountValue);
 
-        web3.eth.sendTransaction({
+        let txHash = web3.eth.sendTransaction({
           from: fromValue,
           to: toValue,
           value: web3.toWei(amountValue, "ether"),
         });
 
-        window.location.reload();
+        // window.location.reload();
+
+        document.getElementById("txHashField").value = txHash;
+
+        loadAccounts();
       }
 
-      let create_Pw = document.getElementById("pw").value;
-
-      function createNewAccount(create_Pw) {
+      function createNewAccount() {
+        let create_Pw = document.getElementById("pw").value;
         web3.personal.newAccount(create_Pw);
-        getAccounts();
+        loadAccounts();
       }
 
       // unlockAcc
       // unlockPw
 
-      let unlock_Acc = document.getElementById("unlockAcc").value;
-      let unlock_Pw = document.getElementById("unlockPw").value;
+      function unlockAccount1() {
+        let unlock_Acc = document.getElementById("unlockAcc").value;
+        let unlock_Pw = document.getElementById("unlockPw").value;
 
-      function UnlockAccount(unlock_Acc, unlock_Pw) {
-        web3.personal.UnlockAccount(unlock_Acc, unlock_Pw);
+        web3.personal.unlockAccount(unlock_Acc, unlock_Pw);
+        loadAccounts();
       }
 
       function getBlock(blockNum) {
@@ -119,9 +147,19 @@
         });
       }
 
-      function getTransaction(txHash) {
+      function getTransaction() {
+        let txHash = document.getElementById("txHashField").value;
         web3.eth.getTransaction(txHash, function (error, tx) {
           console.log(tx);
+
+          document.getElementById("txTable").innerHTML =
+            "<tr><td> tx hash  <td>" +
+            tx.hash +
+            "</td></tr><tr><td> nonce  <td>" +
+            tx.nonce +
+            "</td></tr><tr><td> blcokNumber  <td>" +
+            tx.blockNumber +
+            "</td></tr>";
         });
       }
 
@@ -129,6 +167,12 @@
         .getElementById("send_btn")
         .addEventListener("click", function () {
           sendAction();
+        });
+
+      document
+        .getElementById("txCheck_btn")
+        .addEventListener("click", function () {
+          getTransaction();
         });
     </script>
   </body>
