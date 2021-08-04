@@ -5,8 +5,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/_assets/css/bootstrap.min.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a href="" class="navbar-brand">Block explorer</a>
+      </div>
+      <div class="container">
+        <a href="" class="navbar-brand"></a>
+        <input type="text" id="recentblockNumber" />
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <table
+            id="dataTable"
+            class="table table-dark table-striped"
+            style="margin: 20px 0 50px 50px; width: 50%"
+          ></table>
+        </div>
+
+        <div class="col-md-4 col-md-offset-4">
+          <div style="margin: 20px 0px 0px 80px">
+            <input type="text" id="txHashField" placeholder="tx hash" />
+            <button id="txCheck_btn" onclick="">트랜잭션 조회</button>
+          </div>
+          <table
+            id="txTable"
+            class="table table-info table-striped"
+            style="margin: 20px 0 50px 80px; width: 50%"
+          ></table>
+          <div style="margin: 20px 0px 0px 80px">
+            <input type="text" id="blockfield" placeholder="block num" />
+
+            <button id="blcok_btn" onclick="">블록 조회</button>
+          </div>
+          <table
+            id="blockTable"
+            class="table table-info table-striped"
+            style="margin: 20px 0 50px 80px; width: 50%"
+          ></table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-left: 20px">
+      from: <input type="text" id="fromId" placeholder="보내는 사람" /> to:
+      <input type="text" id="toId" placeholder="받는 사람" /> value:<input
+        type="number"
+        id="sendValue"
+        placeholder="이더 수량(eth)"
+      />
+      <button id="send_btn">send</button>
+    </div>
+
+    <div style="margin: 20px 0px 0px 20px">
+      <input type="password" id="pw" placeholder="비밀번호" />
+      <button id="create_btn" onclick="createNewAccount()">계정생성</button>
+    </div>
+
+    <div style="margin: 20px 0px 0px 20px">
+      <input type="text" id="unlockAcc" placeholder="계정" />
+      <input type="text" id="unlockPw" placeholder="비밀번호" />
+      <button id="unlock_btn" onclick="unlockAccount()">잠금해제</button>
+      <div id="recentblockNumber"></div>
+    </div>
+
     <script type="text/javascript" src="./lib/bignumber.min.js"></script>
     <script type="text/javascript" src="./lib/web3.js"></script>
+
     <script type="text/javascript">
       if (typeof web3 !== "undefined") {
         web3 = new Web3(web3.currentProvider);
@@ -23,110 +101,141 @@
         console.log("not connected");
       }
 
-      let accounts = web3.eth.accounts;
-      console.log(accounts);
+      function loadAccounts() {
+        let accounts = web3.eth.accounts;
 
-      let balance = web3.eth.getBalance(accounts[0]);
-      console.log(web3.fromWei(balance).toNumber() + "ETH");
+        let list = "";
+        let balance;
 
-      document.getElementsByTagName("div")[0].innerHTML = accounts;
-      document.getElementsByTagName("div")[1].innerHTML = balance;
+        for (var i = 0; i < accounts.length; i++) {
+          balance =
+            web3.fromWei(web3.eth.getBalance(accounts[i])).toNumber() + "ETH";
+          list +=
+            "<tr><td>" + accounts[i] + "</td> <td>" + balance + "</td> </tr>";
+        }
+
+        document.getElementById("dataTable").innerHTML = list;
+      }
+
+      loadAccounts();
+
+      // console.log(accounts);
+
+      // console.log(web3.fromWei(balance).toNumber() + "ETH");
+
+      function sendAction() {
+        let fromValue = document.getElementById("fromId").value;
+        let toValue = document.getElementById("toId").value;
+        let amountValue = document.getElementById("sendValue").value;
+
+        // console.log(amountValue);
+
+        let txHash = web3.eth.sendTransaction({
+          from: fromValue,
+          to: toValue,
+          value: web3.toWei(amountValue, "ether"),
+        });
+
+        // window.location.reload();
+
+        document.getElementById("txHashField").value = txHash;
+
+        loadAccounts();
+      }
+
+      function createNewAccount() {
+        let create_Pw = document.getElementById("pw").value;
+        web3.personal.newAccount(create_Pw);
+        loadAccounts();
+      }
+
+      function unlockAccount() {
+        let unlock_Acc = document.getElementById("unlockAcc").value;
+        let unlock_Pw = document.getElementById("unlockPw").value;
+
+        web3.personal.unlockAccount(unlock_Acc, unlock_Pw);
+        loadAccounts();
+      }
+
+      function getBlock() {
+        let blockNum = document.getElementById("blockfield").value;
+
+        web3.eth.getBlock(blockNum, function (error, block) {
+          // console.log(block);
+
+          document.getElementById("blockTable").innerHTML =
+            "</td></tr><tr><td> block number  <td>" +
+            block.number +
+            "</td></tr><tr><td> block hash  <td>" +
+            block.hash +
+            "</td></tr><tr><td> transactions  <td>" +
+            block.transactions +
+            "<tr><td> difficulty  <td>" +
+            block.difficulty +
+            "</td></tr><tr><td> gasLimit  <td>" +
+            block.gasLimit +
+            "</td></tr><tr><td> gasUsed  <td>" +
+            block.gasUsed +
+            "</td></tr><tr><td> miner <td>" +
+            block.miner +
+            "</td></tr><tr><td> timestamp <td>" +
+            block.timestamp +
+            "</td></tr>";
+        });
+      }
+
+      function getTransaction() {
+        let txHash = document.getElementById("txHashField").value;
+        web3.eth.getTransaction(txHash, function (error, tx) {
+          console.log(tx);
+
+          document.getElementById("txTable").innerHTML =
+            "<tr><td> tx hash  <td>" +
+            tx.hash +
+            "</td></tr><tr><td> nonce  <td>" +
+            tx.nonce +
+            "</td></tr><tr><td> blockNumber  <td>" +
+            tx.blockNumber +
+            "</td></tr><tr><td> from  <td>" +
+            tx.from +
+            "</td></tr><tr><td> to  <td>" +
+            tx.to +
+            "</td></tr>";
+        });
+      }
+
+      var filter = web3.eth.filter("latest");
+      filter.watch(function (error, block_hash) {
+        web3.eth.getBlock(block_hash, false, function (err, block) {
+          console.log(block);
+          document.getElementById("recentblockNumber").value =
+            "최신블록: " + block.number;
+        });
+      });
+
+      document
+        .getElementById("send_btn")
+        .addEventListener("click", function () {
+          sendAction();
+        });
+
+      document
+        .getElementById("txCheck_btn")
+        .addEventListener("click", function () {
+          getTransaction();
+        });
+
+      document
+        .getElementById("blcok_btn")
+        .addEventListener("click", function () {
+          getBlock();
+        });
     </script>
-
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-
-    <title>가나슈</title>
-  </head>
-  <body>
-    <div id="htmlAccounts"></div>
-
-    <div id="htmlBalance"></div>
-    <br />
-
-    <div id="table01" style="margin: 50px 0 0 100px"></div>
   </body>
 
-  <script type="text/javascript">
-    // document.getElementsByTagName("div")[0].innerHTML = accounts;
-    // document.getElementsByTagName("div")[1].innerHTML = balance;
-    document.getElementsByTagName("div")[2].innerHTML = `
-    <table class="table table-dark table-striped">
-            <tr>
-                <th>인덱스</th>
-                <th>지갑주소</th>
-                <th>잔고</th>
-            </tr>
-
-            <tr>
-                <td>0</td>
-                <td> ${accounts[0]} </td>
-                <td> ${web3.eth.getBalance(accounts[0])} </td>
-            </tr>
-
-            <tr>
-                <td>1</td>
-                <td> ${accounts[1]} </td>
-                <td> ${web3.eth.getBalance(accounts[1])} </td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td> ${accounts[2]} </td>
-                <td> ${web3.eth.getBalance(accounts[2])} </td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td> ${accounts[3]} </td>
-                <td> ${web3.eth.getBalance(accounts[3])} </td>
-            </tr>
-
-            <tr>
-                <td>4</td>
-                <td> ${accounts[4]} </td>
-                <td> ${web3.eth.getBalance(accounts[4])} </td>
-            </tr>
-
-            <tr>
-                <td>5</td>
-                <td> ${accounts[5]} </td>
-                <td> ${web3.eth.getBalance(accounts[5])} </td>
-            </tr>
-
-            <tr>
-                <td>6</td>
-                <td> ${accounts[6]} </td>
-                <td> ${web3.eth.getBalance(accounts[6])} </td>
-            </tr>
-
-            <tr>
-                <td>7</td>
-                <td> ${accounts[7]} </td>
-                <td> ${web3.eth.getBalance(accounts[7])} </td>
-            </tr>
-
-            <tr>
-                <td>8</td>
-                <td> ${accounts[8]} </td>
-                <td> ${web3.eth.getBalance(accounts[8])} </td>
-            </tr>
-
-            <tr>
-                <td>9</td>
-                <td> ${accounts[9]} </td>
-                <td> ${web3.eth.getBalance(accounts[9])} </td>
-            </tr>
-
-           
-
-
-        </table>
-    `;
-  </script>
+  <style>
+    .bg-primary {
+      background-color: #78c2ad !important;
+    }
+  </style>
 </html>

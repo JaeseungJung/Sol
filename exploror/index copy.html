@@ -12,10 +12,83 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/_assets/css/bootstrap.min.css" />
 
     <title>Document</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Block explorer</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor01"
+          aria-controls="navbarColor01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#"
+                >Home
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Dropdown</a
+              >
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <button id="loadAccounts" class="btn btn-secondary">Accounts</button>
+      </div>
+      <div class="container">
+        <input
+          type="text"
+          id="txHashField"
+          placeholder="tx hash / block num"
+          class="form-control"
+        />
+        <button class="btn btn-secondary" id="txCheck_btn">조회</button>
+      </div>
+      <div class="container"></div>
+      <div class="container">
+        <input type="text" id="recentblockNumber" />
+      </div>
+    </div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-4">
@@ -27,40 +100,20 @@
         </div>
 
         <div class="col-md-4 col-md-offset-4">
-          <div style="margin: 20px 0px 0px 50px">
-            <input type="text" id="txHashField" placeholder="tx hash" />
-            <button id="txCheck_btn" onclick="UnlockAccount1()">
-              트랜잭션 조회
-            </button>
-          </div>
+          <div style="margin: 20px 0px 0px 80px"></div>
           <table
             id="txTable"
             class="table table-info table-striped"
-            style="margin: 20px 0 50px 50px; width: 50%"
+            style="margin: 20px 0 50px 80px; width: 50%"
+          ></table>
+          <div style="margin: 20px 0px 0px 80px"></div>
+          <table
+            id="blockTable"
+            class="table table-info table-striped"
+            style="margin: 20px 0 50px 80px; width: 50%"
           ></table>
         </div>
       </div>
-    </div>
-
-    <div style="margin-left: 20px">
-      from: <input type="text" id="fromId" placeholder="보내는 사람" /> to:
-      <input type="text" id="toId" placeholder="받는 사람" /> value:<input
-        type="number"
-        id="sendValue"
-        placeholder="이더 수량(eth)"
-      />
-      <button id="send_btn">send</button>
-    </div>
-
-    <div style="margin: 20px 0px 0px 20px">
-      <input type="password" id="pw" placeholder="비밀번호" />
-      <button id="create_btn" onclick="createNewAccount()">계정생성</button>
-    </div>
-
-    <div style="margin: 20px 0px 0px 20px">
-      <input type="text" id="unlockAcc" placeholder="계정" />
-      <input type="text" id="unlockPw" placeholder="비밀번호" />
-      <button id="unlock_btn" onclick="UnlockAccount1()">잠금해제</button>
     </div>
 
     <script type="text/javascript" src="./lib/bignumber.min.js"></script>
@@ -95,10 +148,9 @@
             "<tr><td>" + accounts[i] + "</td> <td>" + balance + "</td> </tr>";
         }
 
-        document.getElementById("dataTable").innerHTML = list;
+        document.getElementById("dataTable").innerHTML =
+          "<th> Accounts Balance </th> <th>  Balance </th>" + list;
       }
-
-      loadAccounts();
 
       // console.log(accounts);
 
@@ -130,10 +182,7 @@
         loadAccounts();
       }
 
-      // unlockAcc
-      // unlockPw
-
-      function unlockAccount1() {
+      function unlockAccount() {
         let unlock_Acc = document.getElementById("unlockAcc").value;
         let unlock_Pw = document.getElementById("unlockPw").value;
 
@@ -141,9 +190,30 @@
         loadAccounts();
       }
 
-      function getBlock(blockNum) {
+      function getBlock() {
+        let blockNum = document.getElementById("txHashField").value;
+
         web3.eth.getBlock(blockNum, function (error, block) {
-          console.log(block);
+          // console.log(block);
+
+          document.getElementById("blockTable").innerHTML =
+            "</td></tr><tr><td> block number  <td>" +
+            block.number +
+            "</td></tr><tr><td> block hash  <td>" +
+            block.hash +
+            "</td></tr><tr><td> transactions  <td>" +
+            block.transactions +
+            "<tr><td> difficulty  <td>" +
+            block.difficulty +
+            "</td></tr><tr><td> gasLimit  <td>" +
+            block.gasLimit +
+            "</td></tr><tr><td> gasUsed  <td>" +
+            block.gasUsed +
+            "</td></tr><tr><td> miner <td>" +
+            block.miner +
+            "</td></tr><tr><td> timestamp <td>" +
+            block.timestamp +
+            "</td></tr>";
         });
       }
 
@@ -157,23 +227,78 @@
             tx.hash +
             "</td></tr><tr><td> nonce  <td>" +
             tx.nonce +
-            "</td></tr><tr><td> blcokNumber  <td>" +
+            "</td></tr><tr><td> blockNumber  <td>" +
             tx.blockNumber +
+            "</td></tr><tr><td> from  <td>" +
+            tx.from +
+            "</td></tr><tr><td> to  <td>" +
+            tx.to +
             "</td></tr>";
         });
       }
 
+      function getget() {
+        let getInput = document.getElementById("txHashField").value;
+        let getInput2 = String(getInput);
+
+        console.log(getInput);
+        console.log(getInput2.length);
+
+        if (getInput2.length > 20) {
+          getTransaction();
+        } else {
+          getBlock();
+        }
+      }
+
+      var add1 = 0x84b103d756ce5d8c0d6e4654c39e766f9378480ecdeb7bcba938438a699bc422;
+      var add2 = String(add1);
+      console.log(add2.length);
+
+      var filter = web3.eth.filter("latest");
+      filter.watch(function (error, block_hash) {
+        web3.eth.getBlock(block_hash, false, function (err, block) {
+          console.log(block);
+          document.getElementById("recentblockNumber").value =
+            "최신블록: " + block.number;
+        });
+      });
+
       document
-        .getElementById("send_btn")
+        .getElementById("loadAccounts")
         .addEventListener("click", function () {
-          sendAction();
+          loadAccounts();
         });
 
       document
         .getElementById("txCheck_btn")
         .addEventListener("click", function () {
-          getTransaction();
+          getget();
         });
     </script>
   </body>
+
+  <style>
+    .bg-primary {
+      background-color: #78c2ad !important;
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background-color: #f3969a;
+      border-color: #f3969a;
+    }
+
+    .btn-secondary:hover {
+      color: #fff;
+      background-color: #cf8083;
+      border-color: #c2787b;
+    }
+
+    #loadAccounts {
+      color: #fff;
+      background-color: #f3969a;
+      border-color: #f3969a;
+    }
+  </style>
 </html>
