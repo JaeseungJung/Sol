@@ -95,22 +95,22 @@
           <table
             id="dataTable"
             class="table table-dark table-striped"
-            style="margin: 20px 0 50px 50px; width: 50%"
+            style="margin: 20px 0 50px 10px; width: 50%"
           ></table>
         </div>
 
         <div class="col-md-4 col-md-offset-4">
-          <div style="margin: 20px 0px 0px 80px"></div>
+          <div style="margin: 20px 0px 0px 0px"></div>
           <table
             id="txTable"
             class="table table-info table-striped"
-            style="margin: 20px 0 50px 80px; width: 50%"
+            style="margin: 20px 0 50px 0px; width: 50%"
           ></table>
-          <div style="margin: 20px 0px 0px 80px"></div>
+          <div style="margin: 20px 0px 0px 0px"></div>
           <table
             id="blockTable"
             class="table table-info table-striped"
-            style="margin: 20px 0 50px 80px; width: 50%"
+            style="margin: 20px 0 50px 0px; width: 50%"
           ></table>
         </div>
       </div>
@@ -149,7 +149,7 @@
         }
 
         document.getElementById("dataTable").innerHTML =
-          "<th> Accounts Balance </th> <th>  Balance </th>" + list;
+          "<th> Accounts  </th> <th>  Balance </th>" + list;
       }
 
       // console.log(accounts);
@@ -197,7 +197,7 @@
           // console.log(block);
 
           document.getElementById("blockTable").innerHTML =
-            "</td></tr><tr><td> block number  <td>" +
+            "<th>Block Info <th></td></tr><tr><td> block number  <td>" +
             block.number +
             "</td></tr><tr><td> block hash  <td>" +
             block.hash +
@@ -223,7 +223,7 @@
           console.log(tx);
 
           document.getElementById("txTable").innerHTML =
-            "<tr><td> tx hash  <td>" +
+            "<th>Tx Info <th><tr><td> tx hash  <td>" +
             tx.hash +
             "</td></tr><tr><td> nonce  <td>" +
             tx.nonce +
@@ -233,7 +233,9 @@
             tx.from +
             "</td></tr><tr><td> to  <td>" +
             tx.to +
-            "</td></tr>";
+            "</td></tr><tr><td> value  <td>" +
+            tx.value / 10 ** 18 +
+            " eth</td></tr>";
         });
       }
 
