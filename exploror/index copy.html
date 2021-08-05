@@ -32,42 +32,29 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="#"
-                >Home
-                <span class="visually-hidden">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Dropdown</a
-              >
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </li>
-          </ul>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+
+        <div class="container" style="margin: 0 0px 0 200px">
+          <button class="btn btn-secondary" id="recentblockNumber_btn">
+            recent block :
+          </button>
+        </div>
+
+        <div class="container">
+          <input
+            type="text"
+            id="recentblockNumber"
+            placeholder="loading..."
+            class="form-control"
+            readonly
+          />
         </div>
       </div>
     </nav>
@@ -75,23 +62,46 @@
       <div class="container">
         <button id="loadAccounts" class="btn btn-secondary">Accounts</button>
       </div>
+
       <div class="container">
         <input
           type="text"
-          id="txHashField"
-          placeholder="tx hash / block num"
+          id="hash_field"
+          placeholder="tx hash / block number"
           class="form-control"
         />
-        <button class="btn btn-secondary" id="txCheck_btn">조회</button>
       </div>
-      <div class="container"></div>
+
       <div class="container">
-        <input type="text" id="recentblockNumber" />
+        <button
+          class="btn btn-secondary"
+          id="txCheck_btn"
+          style="margin-left: 0px"
+        >
+          조회
+        </button>
+        <button
+          class="btn btn-secondary"
+          id="recentTx_btn"
+          style="margin-left: 0px"
+        >
+          recent Tx :
+        </button>
+      </div>
+      <div class="container">
+        <input
+          type="text"
+          id="recentTx"
+          placeholder="loading..."
+          class="form-control"
+          readonly
+        />
       </div>
     </div>
-    <div class="container-fluid">
+
+    <div class="container-fluid flex">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 flex-wrap">
           <table
             id="dataTable"
             class="table table-dark table-striped"
@@ -99,14 +109,12 @@
           ></table>
         </div>
 
-        <div class="col-md-4 col-md-offset-4">
-          <div style="margin: 20px 0px 0px 0px"></div>
+        <div class="col-md-4 col-md-offset-4 flex-wrap">
           <table
             id="txTable"
             class="table table-info table-striped"
             style="margin: 20px 0 50px 0px; width: 50%"
           ></table>
-          <div style="margin: 20px 0px 0px 0px"></div>
           <table
             id="blockTable"
             class="table table-info table-striped"
@@ -130,7 +138,7 @@
       }
 
       if (web3.isConnected()) {
-        console.log("connected");
+        // console.log("connected");
       } else {
         console.log("not connected");
       }
@@ -171,7 +179,7 @@
 
         // window.location.reload();
 
-        document.getElementById("txHashField").value = txHash;
+        document.getElementById("hash_field").value = txHash;
 
         loadAccounts();
       }
@@ -191,7 +199,34 @@
       }
 
       function getBlock() {
-        let blockNum = document.getElementById("txHashField").value;
+        let blockNum = document.getElementById("hash_field").value;
+
+        web3.eth.getBlock(blockNum, function (error, block) {
+          // console.log(block);
+
+          document.getElementById("blockTable").innerHTML =
+            "<th>Block Info <th></td></tr><tr><td> block number  <td>" +
+            block.number +
+            "</td></tr><tr><td> block hash  <td>" +
+            block.hash +
+            "</td></tr><tr><td> transactions  <td>" +
+            block.transactions +
+            "<tr><td> difficulty  <td>" +
+            block.difficulty +
+            "</td></tr><tr><td> gasLimit  <td>" +
+            block.gasLimit +
+            "</td></tr><tr><td> gasUsed  <td>" +
+            block.gasUsed +
+            "</td></tr><tr><td> miner <td>" +
+            block.miner +
+            "</td></tr><tr><td> timestamp <td>" +
+            block.timestamp +
+            "</td></tr>";
+        });
+      }
+
+      function getBlock2() {
+        let blockNum = document.getElementById("recentblockNumber").value;
 
         web3.eth.getBlock(blockNum, function (error, block) {
           // console.log(block);
@@ -218,9 +253,31 @@
       }
 
       function getTransaction() {
-        let txHash = document.getElementById("txHashField").value;
+        let txHash = document.getElementById("hash_field").value;
         web3.eth.getTransaction(txHash, function (error, tx) {
-          console.log(tx);
+          // console.log(tx);
+
+          document.getElementById("txTable").innerHTML =
+            "<th>Tx Info <th><tr><td> tx hash  <td>" +
+            tx.hash +
+            "</td></tr><tr><td> nonce  <td>" +
+            tx.nonce +
+            "</td></tr><tr><td> blockNumber  <td>" +
+            tx.blockNumber +
+            "</td></tr><tr><td> from  <td>" +
+            tx.from +
+            "</td></tr><tr><td> to  <td>" +
+            tx.to +
+            "</td></tr><tr><td> value  <td>" +
+            tx.value / 10 ** 18 +
+            " eth</td></tr>";
+        });
+      }
+
+      function getTransaction2() {
+        let txHash = document.getElementById("recentTx").value;
+        web3.eth.getTransaction(txHash, function (error, tx) {
+          // console.log(tx);
 
           document.getElementById("txTable").innerHTML =
             "<th>Tx Info <th><tr><td> tx hash  <td>" +
@@ -240,11 +297,11 @@
       }
 
       function getget() {
-        let getInput = document.getElementById("txHashField").value;
+        let getInput = document.getElementById("hash_field").value;
         let getInput2 = String(getInput);
 
-        console.log(getInput);
-        console.log(getInput2.length);
+        // console.log(getInput);
+        // console.log(getInput2.length);
 
         if (getInput2.length > 20) {
           getTransaction();
@@ -255,14 +312,14 @@
 
       var add1 = 0x84b103d756ce5d8c0d6e4654c39e766f9378480ecdeb7bcba938438a699bc422;
       var add2 = String(add1);
-      console.log(add2.length);
+      // console.log(add2.length);
 
       var filter = web3.eth.filter("latest");
       filter.watch(function (error, block_hash) {
         web3.eth.getBlock(block_hash, false, function (err, block) {
-          console.log(block);
-          document.getElementById("recentblockNumber").value =
-            "최신블록: " + block.number;
+          // console.log(block);
+          document.getElementById("recentblockNumber").value = block.number;
+          document.getElementById("recentTx").value = block.transactions;
         });
       });
 
@@ -276,6 +333,18 @@
         .getElementById("txCheck_btn")
         .addEventListener("click", function () {
           getget();
+        });
+
+      document
+        .getElementById("recentblockNumber_btn")
+        .addEventListener("click", function () {
+          getBlock2();
+        });
+
+      document
+        .getElementById("recentTx_btn")
+        .addEventListener("click", function () {
+          getTransaction2();
         });
     </script>
   </body>
@@ -301,6 +370,11 @@
       color: #fff;
       background-color: #f3969a;
       border-color: #f3969a;
+    }
+
+    #recentblockNumber,
+    #recentTx {
+      background-color: white !important;
     }
   </style>
 </html>
