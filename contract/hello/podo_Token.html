@@ -1,0 +1,466 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<!-- Bootstrap CSS -->
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="./_assets/css/bootstrap.min.css" />
+
+
+<script src="./lib/web3.min.js"></script>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ERC20 Token Interactor 🍇</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarColor01"
+        aria-controls="navbarColor01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+
+      <div class="container">
+    <button class="btn btn-secondary"  onclick="init()">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+  <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+    <!-- <button class="btn btn-secondary" onclick="totalSupply()">Total Token Supply</button> -->
+
+    </div>
+
+    <div class="container">
+     
+    </div>
+
+    <div class="container">
+      
+    </div>
+    <div class="container">
+      
+    </div>
+  </div>
+
+  
+
+  <br>
+
+  <div style="margin-left: 20px;">
+  
+  <div>
+    <input type="text" id="contract_Input" placeholder="contract address"/>
+    <button class="btn btn-secondary" onclick="getContract()">contract connect</button>
+  </div>
+  <br>
+  <div>
+    <input type="text" id="balanceOf_Input" placeholder="address"/>
+
+    <button class="btn btn-secondary" onclick="balanceOf()">balance check</button>
+    
+  </div>
+  <br>
+
+  <div>
+    <input type="text" id="transfer_R_Add" placeholder="receiver address"/>
+    <input type="text" id="transfer_Amount" placeholder="token amount"/>
+
+    <button class="btn btn-secondary" onclick="transfer()">transfer </button>
+
+
+    
+  </div>
+  <div>
+    <label> [Event] </label>
+    <div id="eventResult"></div>
+    <div id="account"></div>
+    <div id="contract"></div>
+    <div id="totalSupply_Data"></div>
+    <div id="balance"></div>
+  </div>
+
+</div>
+</body>
+
+<script type="text/javascript">
+
+  let provider;
+  let web3;
+  let account;
+  let contract;
+
+ async function init() {
+
+  if (window.ethereum) {
+      web3 = new Web3(window.ethereum);
+      try {
+        // Request account access if needed
+        await window.ethereum.enable();
+        // Acccounts now exposed
+        web3.eth.getAccounts().then(function(accounts){
+          account = accounts[0]
+          document.getElementById("account").innerText = "Connected Account Address: " + account
+        })
+      } catch (error) {
+      }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+      // Use Mist/MetaMask's provider.
+      web3 = window.web3;
+      console.log("Injected web3 detected.");
+    }
+  }
+  
+  function getContract() {
+    let abi =[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "total",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "delegate",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "delegate",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numTokens",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenOwner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "receiver",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numTokens",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "buyer",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numTokens",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+
+    var connected_Contract = document.getElementById("contract_Input").value
+    contract = new web3.eth.Contract(abi, connected_Contract)
+    document.getElementById("contract").innerText = "Token Contract: "+ contract._address
+    console.log(contract)
+
+    contract.methods.totalSupply().call()
+    .then(function(result){
+      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
+    });
+
+    yourBalanceOf()
+
+
+    // listen event
+    // contract.events.SetName({}, function(error, event){ 
+    //   console.log(event)
+    //   document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
+    // })
+    // document.getElementById("eventResult").innerText = "Listening..."
+  }
+   
+  function balanceOf(){
+    let account_bal = document.getElementById("balanceOf_Input").value
+    
+    contract.methods.balanceOf(account_bal).call()
+    .then(function(result){
+      document.getElementById("balance").innerText =  account_bal + "'s balance is "+ result
+    });
+  }
+  
+  function yourBalanceOf(){
+    web3.eth.getAccounts().then(function(accounts){
+          account = accounts[0]
+          console.log(account)
+          document.getElementById("account").innerText = "Connected Account Address: " + account
+        })
+          
+    
+    contract.methods.balanceOf(account).call()
+    .then(function(result){
+      document.getElementById("balance").innerText =  "your balance is "+ result
+    });
+  }
+
+  function totalSupply(){
+    
+    contract.methods.totalSupply().call()
+    .then(function(result){
+      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
+    });
+  }
+  
+  function transfer() {
+    let reciverAddress = document.getElementById("transfer_R_Add").value
+    let transferAmount= document.getElementById("transfer_Amount").value
+
+    contract.methods.transfer(reciverAddress,transferAmount).send(
+      {from: account}
+    );
+    
+    document.getElementById("eventResult").innerText = reciverAddress + "에게 포도 토큰 " + transferAmount + "개 전송 완료."
+
+
+  }
+
+  
+
+</script>
+
+<style>
+
+.btn-secondary {
+     border-radius: 16px;
+    }
+ 
+</style>
+</html>
