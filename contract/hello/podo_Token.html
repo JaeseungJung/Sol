@@ -3,19 +3,32 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- Bootstrap CSS -->
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-rel="stylesheet"
-integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-crossorigin="anonymous"
-/>
-<link rel="stylesheet" href="./_assets/css/bootstrap.min.css" />
 
+
+<!-- Bootstrap CSS -->
+
+<link
+href="https://bootswatch.com/_assets/css/custom.min.css"
+rel="stylesheet"
+/>
+
+<link
+href="https://bootswatch.com/5/vapor/bootstrap.css"
+rel="stylesheet"
+/>
+
+<link
+href= "https://bootswatch.com/_vendor/prismjs/themes/prism-okaidia.css"
+rel="stylesheet"
+/>
+
+<link
+href= "https://bootswatch.com/_vendor/font-awesome/css/font-awesome.min.css"
+rel="stylesheet"
+/>
 
 <script src="./lib/web3.min.js"></script>
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">ERC20 Token Interactor 🍇</a>
@@ -90,13 +103,23 @@ crossorigin="anonymous"
     
   </div>
   <div>
-    <label> [Event] </label>
-    <div id="eventResult"></div>
+    <label> [MESSAGE] </label>
     <div id="account"></div>
+<br>
+    <div style="margin-left: 20px;">
     <div id="contract"></div>
+    <div id="token_name"></div>
+    <div id="token_symbol"></div>
+
     <div id="totalSupply_Data"></div>
-    <div id="balance"></div>
   </div>
+    <div style="margin-left: 30px;" id="balance"></div>
+  </div>
+  <br>
+</div>
+  <div style="margin-left: 40px;" id="eventResult"></div>
+</div>
+
 
 </div>
 </body>
@@ -390,12 +413,15 @@ crossorigin="anonymous"
     var connected_Contract = document.getElementById("contract_Input").value
     contract = new web3.eth.Contract(abi, connected_Contract)
     document.getElementById("contract").innerText = "Token Contract: "+ contract._address
-    console.log(contract)
+    // console.log(contract)
 
     contract.methods.totalSupply().call()
     .then(function(result){
       document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
     });
+
+   
+    get_TokenInfo ()
 
     yourBalanceOf()
 
@@ -417,11 +443,22 @@ crossorigin="anonymous"
     });
   }
   
+  async function get_TokenInfo (){
+    let tokenName = await contract.methods.name().call();
+    let tokenSymbol = await contract.methods.symbol().call();
+
+      document.getElementById("token_name").innerText = "Token Name: " + tokenName
+      document.getElementById("token_symbol").innerText = "Token Symbol: " + tokenSymbol
+
+      
+  }
+
   function yourBalanceOf(){
     web3.eth.getAccounts().then(function(accounts){
           account = accounts[0]
-          console.log(account)
-          document.getElementById("account").innerText = "Connected Account Address: " + account
+          // console.log(account)
+          document.getElementById("account").innerHTML = 
+          "Connected Account Address: " + account
         })
           
     
@@ -445,9 +482,13 @@ crossorigin="anonymous"
 
     contract.methods.transfer(reciverAddress,transferAmount).send(
       {from: account}
-    );
-    
+    ).then(function(receipt){
     document.getElementById("eventResult").innerText = reciverAddress + "에게 포도 토큰 " + transferAmount + "개 전송 완료."
+
+    }).on('error', function(){
+      
+    })
+    
 
 
   }
@@ -457,10 +498,12 @@ crossorigin="anonymous"
 </script>
 
 <style>
-
 .btn-secondary {
      border-radius: 16px;
     }
- 
+
+    body {
+    padding-top: 0px;
+}
 </style>
 </html>
