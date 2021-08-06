@@ -483,7 +483,7 @@ rel="stylesheet"
     contract.methods.transfer(reciverAddress,transferAmount).send(
       {from: account}
     ).then(function(receipt){
-    document.getElementById("eventResult").innerText = reciverAddress + "에게 포도 토큰 " + transferAmount + "개 전송 완료."
+    document.getElementById("eventResult").innerText = reciverAddress + "에게"  + " 토큰 " + transferAmount + "개 전송 완료."
 
     }).on('error', function(){
       
