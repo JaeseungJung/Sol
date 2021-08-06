@@ -107,9 +107,6 @@
             class="table table-dark table-striped"
             style="margin: 20px 0 50px 10px; width: 50%"
           ></table>
-        </div>
-
-        <div class="col-md-4 col-md-offset-4 flex-wrap">
           <table
             id="txTable"
             class="table table-info table-striped"
@@ -121,6 +118,8 @@
             style="margin: 20px 0 50px 0px; width: 50%"
           ></table>
         </div>
+
+        <div class="col-md-4 col-md-offset-4 flex-wrap"></div>
       </div>
     </div>
 
@@ -144,6 +143,10 @@
       }
 
       function loadAccounts() {
+        var display_BlockTable = document.getElementById("blockTable");
+        var display_TxTable = document.getElementById("txTable");
+        var display_AccountsTable = document.getElementById("dataTable");
+
         let accounts = web3.eth.accounts;
 
         let list = "";
@@ -155,6 +158,10 @@
           list +=
             "<tr><td>" + accounts[i] + "</td> <td>" + balance + "</td> </tr>";
         }
+
+        display_AccountsTable.style.display = "block";
+        display_TxTable.style.display = "none";
+        display_BlockTable.style.display = "none";
 
         document.getElementById("dataTable").innerHTML =
           "<th> Accounts  </th> <th>  Balance </th>" + list;
@@ -228,7 +235,14 @@
       function getBlock2() {
         let blockNum = document.getElementById("recentblockNumber").value;
 
+        var display_BlockTable = document.getElementById("blockTable");
+        var display_TxTable = document.getElementById("txTable");
+        var display_AccountsTable = document.getElementById("dataTable");
+
         web3.eth.getBlock(blockNum, function (error, block) {
+          display_AccountsTable.style.display = "none";
+          display_BlockTable.style.display = "block";
+          display_TxTable.style.display = "none";
           // console.log(block);
 
           document.getElementById("blockTable").innerHTML =
@@ -276,8 +290,17 @@
 
       function getTransaction2() {
         let txHash = document.getElementById("recentTx").value;
+
+        var display_BlockTable = document.getElementById("blockTable");
+        var display_TxTable = document.getElementById("txTable");
+        var display_AccountsTable = document.getElementById("dataTable");
+
         web3.eth.getTransaction(txHash, function (error, tx) {
           // console.log(tx);
+
+          display_AccountsTable.style.display = "none";
+          display_BlockTable.style.display = "none";
+          display_TxTable.style.display = "block";
 
           document.getElementById("txTable").innerHTML =
             "<th>Tx Info <th><tr><td> tx hash  <td>" +
@@ -303,9 +326,21 @@
         // console.log(getInput);
         // console.log(getInput2.length);
 
+        var display_BlockTable = document.getElementById("blockTable");
+        var display_TxTable = document.getElementById("txTable");
+        var display_AccountsTable = document.getElementById("dataTable");
+
         if (getInput2.length > 20) {
+          display_AccountsTable.style.display = "none";
+          display_BlockTable.style.display = "none";
+          display_TxTable.style.display = "block";
+
           getTransaction();
         } else {
+          display_AccountsTable.style.display = "none";
+          display_TxTable.style.display = "none";
+          display_BlockTable.style.display = "block";
+
           getBlock();
         }
       }
@@ -346,6 +381,19 @@
         .addEventListener("click", function () {
           getTransaction2();
         });
+
+      // console.log(String(0x5a98a70551cdebd03c5de948dce29cdc6acc90a9));
+      // console.log(
+      //   String(
+      //     0xe67805c67552ff24948307de4a9d6941c6c4db9b1d59b3b03a3759be98b2cc5c
+      //   )
+      // );
+
+      // console.log("0x5a98a70551cdebd03c5de948dce29cdc6acc90a9".length); 어카운트 길이 42자리
+      // console.log(
+      //   "0xe67805c67552ff24948307de4a9d6941c6c4db9b1d59b3b03a3759be98b2cc5c"
+      //     .length 트랜잭션 길이 66자리 고정. String으로 변환하면 숫자를 문자로 바꾸기 때문에 매우 큰 값이 리턴됨.
+      // );
     </script>
   </body>
 

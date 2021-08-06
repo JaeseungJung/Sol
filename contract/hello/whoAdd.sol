@@ -44,7 +44,7 @@ contract whoRU{
 
 
     function getInfo(address _address) view public returns (string memory, string memory, bool){
-        return (name[_address],  email[_address],  membership[address]);
+        return (name[_address],  email[_address],  membership[_address]);
     }
 
 
