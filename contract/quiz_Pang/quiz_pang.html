@@ -14,7 +14,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 
 <script src="./lib/web3.min.js"></script>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="header--box">
     <div class="container-fluid">
 		<button
 		  class="navbar-toggler"
@@ -908,7 +908,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 
 body {
 
-	background-color: #B5EAEA;
+	background-color: white;
 }
 
 .bg-primary
@@ -920,17 +920,21 @@ body {
 .card-img-top {
 max-width: 300px	!important;
 align-content: center;
+border-radius: 12px;
+
 }
 
 .card-img-top-sq {
 max-width: 150px	!important;
 align-content: center;
+border-radius: 12px;
 }
 
 .card {
 	padding: 10px 10px;
 	border-radius: 12px;
 	max-width: 500px;
+    box-shadow: 0 0 10px rgb(68 217 232 / 70%), 0 0 30px rgb(68 217 232 / 15%), 0 0 1rem rgb(68 217 232 / 30%), 0 0 4rem rgb(68 217 232 / 10%) !important;
 }
 
 .item {
@@ -943,6 +947,7 @@ align-content: center;
 	
 
 }
+
 
 
 </style>
