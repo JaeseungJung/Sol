@@ -69,26 +69,12 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 
   <div style="margin-left: 20px;">
   
-  <!-- <div>
+  <div>
     <input type="text" id="contract_Input" placeholder="contract address"/>
     <button class="btn btn-secondary" onclick="getContract()">contract connect</button>
-  </div> -->
-  <br>
-  <div>
-    <input type="text" id="balanceOf_Input" placeholder="address"/>
-
-    <button class="btn btn-secondary" onclick="balanceOf()">balance check</button>
-    
   </div>
   <br>
-
-  <div>
-    <input type="text" id="transfer_R_Add" placeholder="receiver address"/>
-    <input type="text" id="transfer_Amount" placeholder="token amount"/>
-
-    <button class="btn btn-secondary" onclick="transfer()">transfer </button>
-
-  </div>
+ 
   <div>
     <label> [MESSAGE] </label>
     <div id="account"></div>
@@ -147,7 +133,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		</div>
 	  </div>
 		</div> 
-	<div class="item" ><div class="card align-items-lg-center">
+	<!-- <div class="item" ><div class="card align-items-lg-center">
 		<img src="https://blog.kakaocdn.net/dn/8jiCS/btqOt06sE8i/mnjbapfYCBF1oMm9DFDHbK/img.jpg" class="card-img-top" alt="...">
 		<div class="card-body">
 		  <h5 class="card-title">포켓몬</h5>
@@ -218,7 +204,7 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 		  </div>
 		</div>
 	  </div>
-		</div> 
+		</div>  -->
 
 	
 
@@ -255,132 +241,37 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
       console.log("Injected web3 detected.");
     }
   }
+
+  
   
   function getContract() {
     let abi =[
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "total",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "_rightAnswer",
+				"type": "string"
 			}
 		],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "constructor"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "tokenOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "tokens",
-				"type": "uint256"
+				"internalType": "bytes32",
+				"name": "_hash",
+				"type": "bytes32"
 			}
 		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "tokens",
-				"type": "uint256"
-			}
-		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "delegate",
-				"type": "address"
-			}
-		],
-		"name": "allowance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "delegate",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numTokens",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
+		"name": "answer",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "tokenOwner",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "balanceOf",
 		"outputs": [
 			{
@@ -389,29 +280,12 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 				"type": "uint256"
 			}
 		],
-		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"constant": true,
 		"inputs": [],
-		"name": "decimals",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "name",
+		"name": "getAnswer",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -419,121 +293,41 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
 				"type": "string"
 			}
 		],
-		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"constant": true,
 		"inputs": [],
-		"name": "symbol",
+		"name": "getHashedAnswer",
 		"outputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "receiver",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numTokens",
-				"type": "uint256"
-			}
-		],
-		"name": "transfer",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "buyer",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numTokens",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
+		"inputs": [],
+		"name": "hashedAnswer",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "bytes32",
 				"name": "",
-				"type": "bool"
+				"type": "bytes32"
 			}
 		],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
-
     var connected_Contract = document.getElementById("contract_Input").value
     contract = new web3.eth.Contract(abi, connected_Contract)
-    document.getElementById("contract").innerText = "Token Contract: "+ contract._address
-    // console.log(contract)
+    document.getElementById("contract").innerText = "Connected Contract: "+ contract._address
+  
 
-    contract.methods.totalSupply().call()
-    .then(function(result){
-      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
-    });
-
-   
-    get_TokenInfo ()
-
-    yourBalanceOf()
-
-
-    // listen event
-    // contract.events.SetName({}, function(error, event){ 
-    //   console.log(event)
-    //   document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
-    // })
-    // document.getElementById("eventResult").innerText = "Listening..."
   }
    
   function balanceOf(){
@@ -545,328 +339,32 @@ rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5
     });
   }
   
-  async function get_TokenInfo (){
-    let tokenName = await contract.methods.name().call();
-    let tokenSymbol = await contract.methods.symbol().call();
 
-      document.getElementById("token_name").innerText = "Token Name: " + tokenName
-      document.getElementById("token_symbol").innerText = "Token Symbol: " + tokenSymbol
-
-      
-  }
-
-  function yourBalanceOf(){
-    web3.eth.getAccounts().then(function(accounts){
-          account = accounts[0]
-          // console.log(account)
-          document.getElementById("account").innerHTML = 
-          "Connected Account Address: " + account
-        })
-          
-    
-    contract.methods.balanceOf(account).call()
-    .then(function(result){
-      document.getElementById("balance").innerText =  "your balance is "+ result
-    });
-  }
-
-  function totalSupply(){
-    
-    contract.methods.totalSupply().call()
-    .then(function(result){
-      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
-    });
-  }
   
-  function transfer() {
-    let reciverAddress = document.getElementById("transfer_R_Add").value
-    let transferAmount= document.getElementById("transfer_Amount").value
+  function submit_Answer(){
+	console.log("정답제출");
+    let input01 = document.getElementById("answer--input--01").value;
 
-    contract.methods.transfer(reciverAddress,transferAmount).send(
+	console.log(input01);
+
+    let hash01 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input01})
+
+	console.log(hash01);
+	console.log(typeof hash01);
+
+	contract.methods.answer(hash01).send(
       {from: account}
     ).then(function(receipt){
-    document.getElementById("eventResult").innerText = reciverAddress + "에게"  + " 토큰 " + transferAmount + "개 전송 완료."
-
+    document.getElementById("eventResult").innerText = "제출 완료"
     }).on('error', function(){
       
     })
-  
-  }
-
-
-  // 퀴즈팡 함수들
-
-
-  function submit_Answer() {
-	  let abi =[
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "total",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "tokenOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "tokens",
-				"type": "uint256"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "tokens",
-				"type": "uint256"
-			}
-		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "delegate",
-				"type": "address"
-			}
-		],
-		"name": "allowance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "delegate",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numTokens",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "tokenOwner",
-				"type": "address"
-			}
-		],
-		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "decimals",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "symbol",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "receiver",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numTokens",
-				"type": "uint256"
-			}
-		],
-		"name": "transfer",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "buyer",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "numTokens",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-]
-
-    var connected_Contract = document.getElementById("contract_Input").value
-    contract = new web3.eth.Contract(abi, connected_Contract)
-    document.getElementById("contract").innerText = "Token Contract: "+ contract._address
-    // console.log(contract)
-
-    contract.methods.totalSupply().call()
-    .then(function(result){
-      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
-    });
-    let input01 = document.getElementById("answer--input--01").value
 
    
   }
+
   
+
 
 </script>
 
