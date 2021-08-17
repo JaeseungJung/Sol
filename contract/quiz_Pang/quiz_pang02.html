@@ -1,0 +1,553 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<title>Quiz Pang !</title>
+
+<!-- Bootstrap CSS -->
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+<script src="./lib/web3.min.js"></script>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="header--box">
+    <div class="container-fluid">
+		<button
+		  class="navbar-toggler"
+		  type="button"
+		  data-bs-toggle="collapse"
+		  data-bs-target="#navbarColor01"
+		  aria-controls="navbarColor01"
+		  aria-expanded="false"
+		  aria-label="Toggle navigation"
+		>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+		<a class="navbar-brand" href="#"> <p id="main--text"> Quiz Pang ! 🧙</p> </a>
+
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+
+
+      <div class="container">
+    <button class="btn btn-secondary2"  onclick="init()">Connect Wallet 🦊</button>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+
+    </div>
+
+    <div class="container">
+     
+    </div>
+
+    <div class="container">
+      
+    </div>
+    <div class="container">
+      
+    </div>
+  </div>
+
+  
+
+  <br>
+
+  <div style="margin-left: 20px;">
+  
+  <div>
+    <input type="text" id="contract_Input" placeholder="contract address"/>
+    <button class="btn btn-secondary" onclick="getContract()">contract connect</button>
+  </div>
+  <br>
+ 
+  <div>
+    <label> [MESSAGE] </label>
+    <div id="account"></div>
+<br>
+    <div style="margin-left: 20px;">
+    <div id="contract"></div>
+    <div id="token_name"></div>
+    <div id="token_symbol"></div>
+
+    <div id="totalSupply_Data"></div>
+  </div>
+    <div style="margin-left: 30px;" id="balance"></div>
+  </div>
+  <br>
+</div>
+  <div style="margin-left: 40px;" id="eventResult"></div>
+</div>
+
+
+</div>
+
+<div class="container2">
+	<div class="item" ><div class="card align-items-lg-center">
+		<img src="https://blog.kakaocdn.net/dn/8jiCS/btqOt06sE8i/mnjbapfYCBF1oMm9DFDHbK/img.jpg" class="card-img-top-sq" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">포켓몬</h5>
+		  <p class="card-text">위 포켓몬 이름은 뭘까요? </p>
+		  <div class="input-group mb-3">
+			<input type="text" id="answer--input--01" class="form-control" placeholder="정답을 입력하세요." aria-label="Recipient's username" aria-describedby="answer--button--01">
+			<button class="btn btn-secondary" type="button" id="answer--button--01" onclick="submit_Answer()">submit</button>
+		  </div>
+		</div>
+	  </div>
+		</div> 
+	<div class="item" ><div class="card align-items-lg-center">
+		<img src="https://academy.aaxspace.com/wp-content/uploads/2020/06/Screenshot-2020-06-04-at-10.00.05-PM-898x500.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">이더리움</h5>
+		  <p class="card-text">이더리움 2.0이 되면 POW => ○○○ 방식으로 전환된다.  </p>
+		  <div class="input-group mb-3">
+			<input type="text" id="answer--input--02" class="form-control" placeholder="정답을 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+			<button class="btn btn-secondary" type="button" id="answer--button--02" onclick="submit_Answer2()">submit</button>
+		  </div>
+		</div>
+	  </div>
+		</div> 
+	<div class="item" ><div class="card align-items-lg-center">
+		<img src="http://www.coindeskkorea.com/news/photo/201911/20191108_1_60801.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">NFT 게임</h5>
+		  <p class="card-text">크립토키티를 벤치마킹하여 엑시를 키우는 NFT 게임의 이름은? </p>
+		  <div class="input-group mb-3">
+			<input type="text" id="answer--input--03" class="form-control" placeholder="정답을 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+			<button class="btn btn-secondary" type="button" id="answer--button--03" onclick="submit_Answer3()">submit</button>
+		  </div>
+		</div>
+	  </div>
+		</div> 
+	<div class="item" ><div class="card align-items-lg-center">
+		<img src="https://images.theconversation.com/files/389726/original/file-20210316-21-167xm3e.jpg?ixlib=rb-1.1.0&rect=0%2C0%2C2176%2C1448&q=45&auto=format&w=496&fit=clip" class="card-img-top" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">백신</h5>
+		  <p class="card-text"> 백신효과를 높이기 위해 일정 시간이 지난 뒤 ‘추가접종’하는 것. </p>
+		  <div class="input-group mb-3">
+			<input type="text" id="answer--input--04" class="form-control" placeholder="정답을 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+			<button class="btn btn-secondary" type="button" id="answer--button--04" onclick="submit_Answer4()">submit</button>
+		  </div>
+		</div>
+	  </div>
+		</div> 
+	<div class="item" ><div class="card align-items-lg-center">
+		<img src="https://www.acprail.com/wp-content/uploads/2018/04/jungfrau.jpg" class="card-img-top" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">스위스</h5>
+		  <p class="card-text">아름다운 설경으로 잘 알려진 알프스 산맥 </p>
+		  <div class="input-group mb-3">
+			<input type="text" id="answer--input--05" class="form-control" placeholder="정답을 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+			<button class="btn btn-secondary" type="button" id="answer--button--05" onclick="submit_Answer5()">submit</button>
+		  </div>
+		</div>
+	  </div>
+		</div> 
+	<div class="item" ><div class="card align-items-lg-center">
+		<img src="https://i.redd.it/13x09yhigbo51.jpg" class="card-img-top" alt="...">
+		<div class="card-body">
+		  <h5 class="card-title">멸종위기</h5>
+		  <p class="card-text">아마존의 핑크 돌고래 </p>
+		  <div class="input-group mb-3">
+			<input type="text" id="answer--input--06" class="form-control" placeholder="정답을 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+			<button class="btn btn-secondary" type="button" id="answer--button--06" onclick="submit_Answer6()">submit</button>
+		  </div>
+		</div>
+	  </div>
+		</div> 
+	
+
+	
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+  let provider;
+  let web3;
+  let account;
+  let contract;
+
+ async function init() {
+
+  if (window.ethereum) {
+      web3 = new Web3(window.ethereum);
+      try {
+        // Request account access if needed
+        await window.ethereum.enable();
+        // Acccounts now exposed
+        web3.eth.getAccounts().then(function(accounts){
+          account = accounts[0]
+          document.getElementById("account").innerText = "Connected Account Address: " + account
+        })
+      } catch (error) {
+      }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+      // Use Mist/MetaMask's provider.
+      web3 = window.web3;
+      console.log("Injected web3 detected.");
+    }
+  }
+
+  
+  
+  function getContract() {
+    let abi =[
+	{
+		"inputs": [],
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "qNum",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_hash",
+				"type": "bytes32"
+			}
+		],
+		"name": "answer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "qNum",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "qAnswer",
+				"type": "string"
+			}
+		],
+		"name": "createQ",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "qNum",
+				"type": "uint256"
+			}
+		],
+		"name": "getAnswer",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "qNum",
+				"type": "uint256"
+			}
+		],
+		"name": "getHashedAnswer",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+
+    var connected_Contract = document.getElementById("contract_Input").value
+    contract = new web3.eth.Contract(abi, connected_Contract)
+    document.getElementById("contract").innerText = "Connected Contract: "+ contract._address
+  
+
+  }
+   
+  function balanceOf(){
+    let account_bal = document.getElementById("balanceOf_Input").value
+    
+    contract.methods.balanceOf(account_bal).call()
+    .then(function(result){
+      document.getElementById("balance").innerText =  account_bal + "'s balance is "+ result
+    });
+  }
+  
+
+  
+  function submit_Answer(){
+	console.log("정답제출");
+    let input01 = document.getElementById("answer--input--01").value;
+
+	console.log(input01);
+
+    let hash01 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input01})
+
+	console.log(hash01);
+	console.log(typeof hash01);
+
+	contract.methods.answer(1,hash01).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = "정답입니다";
+    document.getElementById("answer--button--01").disabled = true;
+	
+    }).on('error', function(){
+      
+    })
+
+   
+  }
+  function submit_Answer2(){
+	console.log("정답제출");
+    let input02 = document.getElementById("answer--input--02").value;
+
+	console.log(input02);
+
+    let hash02 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input02})
+
+	console.log(hash02);
+	console.log(typeof hash02);
+
+	contract.methods.answer(2,hash02).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = "정답입니다"
+    }).on('error', function(){
+      
+    })
+
+   
+  }
+  function submit_Answer3(){
+	console.log("정답제출");
+    let input03 = document.getElementById("answer--input--03").value;
+
+	console.log(input03);
+
+    let hash03 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input03})
+
+	console.log(hash03);
+	console.log(typeof hash03);
+
+	contract.methods.answer(3,hash03).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = "정답입니다"
+    }).on('error', function(){
+    })
+
+   
+  }
+
+  function submit_Answer4(){
+	console.log("정답제출");
+    let input04 = document.getElementById("answer--input--04").value;
+
+	console.log(input04);
+
+    let hash04 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input04})
+
+	console.log(hash04);
+	console.log(typeof hash04);
+
+	contract.methods.answer(4,hash04).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = "정답입니다"
+    }).on('error', function(){
+    })
+
+   
+  }
+  function submit_Answer5(){
+	console.log("정답제출");
+    let input05 = document.getElementById("answer--input--05").value;
+
+	console.log(input05);
+
+    let hash05 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input05})
+
+	console.log(hash05);
+	console.log(typeof hash05);
+
+	contract.methods.answer(5,hash05).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = "정답입니다"
+    }).on('error', function(){
+    })
+
+   
+  }
+
+  function submit_Answer6(){
+	console.log("정답제출");
+    let input06 = document.getElementById("answer--input--06").value;
+
+	console.log(input06);
+
+    let hash06 = web3.utils.soliditySha3({t: 'address', v: account},{t: 'string', v:input06})
+
+	console.log(hash06);
+	console.log(typeof hash06);
+
+	contract.methods.answer(6,hash06).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = "정답입니다"
+    }).on('error', function(){
+    })
+
+   
+  }
+
+
+</script>
+
+<style>
+	@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+	@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+	@import url('http://fonts.cdnfonts.com/css/cloudy');
+	/* font-family: 'Cloudy', sans-serif;   */
+
+p, h5, input {
+    font-family: 'GmarketSansMedium';
+}
+
+	.container2 {
+	padding: auto;
+	display: grid;
+	margin: 0 5%;
+	/* grid-template-columns: 200px 200px 500px; */
+	grid-template-columns: 1fr 1fr 1fr;
+	/* grid-template-columns: repeat(3, 1fr) */
+	/* grid-template-columns: 200px 1fr */
+	/* grid-template-columns: 100px 200px auto */
+
+	grid-template-rows: 400px 400px 400px;
+	/* grid-template-rows: 1fr 1fr 1fr; */
+	/* grid-template-rows: repeat(3, 1fr) */
+	/* grid-template-rows: 200px 1fr */
+	/* grid-template-rows: 100px 200px auto */
+}
+
+.btn-secondary {
+     border-radius: 16px;
+	 background-color: #7C83FD;
+	 border: none;
+	 box-shadow: 3px 3px 3px;
+    }
+
+.btn-secondary2{
+     border-radius: 16px;
+	 background-color: #B5EAEA;
+	 border: none;
+	 box-shadow: 3px 3px 3px;
+}
+
+    body {
+    padding-top: 0px;
+}
+
+body {
+
+	background-color: white;
+}
+
+.bg-primary
+{
+	background-color: #7C83FD !important;
+
+}
+
+.card-img-top {
+max-width: 300px	!important;
+align-content: center;
+border-radius: 12px;
+
+}
+
+.card-img-top-sq {
+max-width: 150px	!important;
+align-content: center;
+border-radius: 12px;
+}
+
+.card {
+	padding: 10px 10px;
+	border-radius: 12px;
+	max-width: 500px;
+    box-shadow: 0 0 10px rgb(68 217 232 / 70%), 0 0 30px rgb(68 217 232 / 15%), 0 0 1rem rgb(68 217 232 / 30%), 0 0 4rem rgb(68 217 232 / 10%) !important;
+}
+
+.item {
+	margin-right: 5%;
+}
+
+#main--text{
+	font-size: 32pt;
+	text-shadow: 0 0 2px rgb(255 255 255 / 60%), 0 0 3px rgb(255 255 255 / 50%), 0 0 0.5rem rgb(255 255 255 / 30%), 0 0 2rem rgb(255 255 255 / 20%);
+	font-family: 'Cloudy', sans-serif;
+                                                
+
+}
+
+
+
+</style>
+</html>
