@@ -15,7 +15,7 @@ contract Test18 {
     }
 
     /// 자주 쓰는 조건문을 모디파이어에 넣어 다음을 기대할 수 있음.
-    // 코드를 간결화 / 사용 편의성 증대.
+    // 코드를 간결화 & 사용 편의성 증대.
     
      function whoTxOrigin() view public returns (address){
         return tx.origin;  
