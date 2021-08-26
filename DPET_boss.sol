@@ -9,6 +9,7 @@
 #  - unknownca87928a(?)
 #  All the rest is below.
 #
+# https://bscscan.com/address/0x16729528002f37922b79795c732d28feee682698#code
 
 const getTime = block.timestamp
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-74527114-7"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-74527114-7");
+    </script>
+    <!-- facebook sdk -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STUDIOMEAL WORLD</title>
+    <meta property="fb:app_id" content="601760870383429" />
+    <meta
+      property="og:image"
+      content="https://studiomeal.com/wp-content/themes/studiomeal2021/images/ogimage.png"
+    />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="315" />
+    <meta property="og:url" content="https://studiomeal.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="STUDIOMEAL::스튜디오밀" />
+    <meta
+      property="og:description"
+      content="여러가지 재미있는 것들을 만드는 스튜디오밀입니다. 1분코딩, 그리고..."
+    />
+    <link
+      rel="apple-touch-icon"
+      href="/wp-content/themes/studiomeal2021/images/logo-600.jpg"
+    />
+    <link
+      rel="shortcut icon"
+      href="/wp-content/themes/studiomeal2021/images/logo-600.jpg"
+    />
+    <link
+      rel="icon"
+      href="/wp-content/themes/studiomeal2021/images/favicon.png"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="https://studiomeal.com/wp-content/themes/studiomeal2021/src/main.css?ver=1.03"> -->
+    <link
+      rel="stylesheet"
+      href="/wp-content/themes/studiomeal2021/src/main.css?ver=1.03"
+    />
+  </head>
+  <body>
+    <img
+      src="/wp-content/themes/studiomeal2021/images/ogimage.png"
+      alt="studiomeal"
+      style="position: absolute; left: -1000px; width: 1px; height: 1px"
+    />
+    <div class="loading"><span>loading</span></div>
+    <span style="font-family: 'Gothic A1', sans-serif">&nbsp;</span>
+    <div class="canvas-container">
+      <canvas id="the-canvas"></canvas>
+    </div>
+    <a href="/" class="site-name">studiomeal</a>
+    <div class="menu-btn-wrapper">
+      <span class="esc">ESC</span>
+      <button class="menu-btn">
+        <span class="hidden-label">Menu</span>
+        <i></i>
+      </button>
+    </div>
+    <nav class="menu">
+      <p class="menu-question">어디로 갈까요?</p>
+      <div class="menu-item menu-item-macbook">
+        <a href="#blog" data-menu="macbook" class="menu-link">1분코딩 블로그</a>
+      </div>
+      <div class="menu-item menu-item-shelf">
+        <a href="#lecture" data-menu="shelf" class="menu-link">온라인 강의들</a>
+      </div>
+      <div class="menu-item menu-item-social">
+        <a href="#social" data-menu="blockFacebook" class="menu-link"
+          >소셜 미디어</a
+        >
+      </div>
+      <div class="menu-item menu-item-guestboard">
+        <a href="#guestboard" data-menu="guestboard" class="menu-link"
+          >방명록</a
+        >
+      </div>
+      <div class="menu-item menu-item-tshirt">
+        <a href="#tshirt" data-menu="tshirt2" class="menu-link">티셔츠</a>
+      </div>
+    </nav>
+
+    <article class="note"></article>
+
+    <div class="target-marker"></div>
+    <div class="mobile-controller">
+      <div class="mobile-controller-bar"></div>
+    </div>
+
+    <div id="stats-output"></div>
+    <form class="comment-form">
+      <div class="form-row">
+        <label for="input-authorname">이름</label>
+        <input
+          type="text"
+          id="input-authorname"
+          maxlength="16"
+          placeholder="Name"
+        />
+      </div>
+      <div class="form-row">
+        <label for="input-message">메시지</label>
+        <textarea
+          id="input-message"
+          maxlength="60"
+          placeholder="Message"
+        ></textarea>
+      </div>
+      <input type="submit" value="OK" class="comment-submit" />
+    </form>
+
+    <!-- <script src="/wp-content/themes/studiomeal2021/node_modules/three/examples/js/libs/stats.min.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/wp-content/themes/studiomeal2021/js/modernizr.js"></script>
+    <script src="/wp-content/themes/studiomeal2021/dist/main.min.js?ver=1.16"></script>
+  </body>
+</html>
