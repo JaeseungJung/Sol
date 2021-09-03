@@ -366,6 +366,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
             }
         }
 
+
         emit TransferBatch(operator, account, address(0), ids, amounts);
     }
 
