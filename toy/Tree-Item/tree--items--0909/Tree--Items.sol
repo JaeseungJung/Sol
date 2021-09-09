@@ -20,6 +20,9 @@ import "./vrf.sol";
     uint256 public constant GOLD = 4;
     uint256 public constant Platinum = 5;
     uint256 public constant Diamond = 6;
+
+    uint256 public constant Draw_Ticket = 777;
+
     
     
     constructor() public ERC1155("https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Tree-Item/{id}.json") {
@@ -32,6 +35,8 @@ import "./vrf.sol";
         _mint(msg.sender, GOLD, 10**6, "");
         _mint(msg.sender, Platinum, 10**4, "");
         _mint(msg.sender, Diamond, 10**2, "");
+        _mint(msg.sender, Draw_Ticket, 10**18, "");
+
         
 }
 /*        constructor() 
