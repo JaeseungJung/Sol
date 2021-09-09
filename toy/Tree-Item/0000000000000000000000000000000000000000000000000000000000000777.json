@@ -1,6 +1,8 @@
+
 {
-  "description": "TreeItems - Draw_Ticket",
-  "external_url": "https://forum.openzeppelin.com",
-  "image": "https://lh3.googleusercontent.com/zYPQj-WsszQDedsXamDxwkVUdUIxbKU5mK3TY9Rsitn0x-oZpwn3z1lLIWHrtslQctR2BmbMw1evR5-21ZzQVqBLS1p6Z9K_PoZlYiQ1HOTxwiFRoCD16qGAYfilLcWqrS_EkwwGHXm3UoYDEw1QcUOwRtlYsIjBR84tlON8SP1i_BuCvdE1s2-fcJCEv3_LQQZ23iSzSAqv06fVOWey5zQbSYUzsl0X5MYi6epuj1no1FT0Ksv07FUQrK9nr1OI9bXMOKk48mOWQntV0SRg-U3VyJoyG28gN6yveTaGaiy6zBeaZhoXEatkH_ZIL8L9w82kZxSzzDotoAIbYZuc_0TpbC1jyaNVXINu1Mkd8BGRiQFRW5576VivH0zSL5ZN76X3jrpB8X3SPfOQWSGNVqPJutaf7S0TRpJDlhx7xIxGcjCXDmTeCe9sKiLP_3cV62Lgec8heAJk6T00qfa9jv2DlsrAR8A07oBu-FNk5kIq-jiUVqX-4WntpsfPO-8y3OEdRpjbIq6pLuVtYOh5SrNAaarT4uVMIaeunStXaznS5DxxLzqwLtcmkbRBf1wjIzeUqjHIX3RGgOG44VV5lUCdkhFDnfP7aNpDLzeWgEGcrcdeHhkItd0NlTvWteZ6md-4KFDdDSqD-xaUYzXqoj3v3t6_gBj1B889JWsBunVDqTaLuyk2zzGoxeFCW3TwV-egrFoAEM8_sV-QdeBgI9I=w1907-h903-no?authuser=0",
-  "name": "Ticket"
+  "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.", 
+  "external_url": "https://openseacreatures.io/3", 
+  "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png", 
+  "name": "Dave Starbelly",
+  "attributes": [ ... ], 
 }
