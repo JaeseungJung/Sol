@@ -175,7 +175,6 @@ contract TreeItems is ERC1155, RandomNumberConsumer{
     return balances[_who];
 }
 
-
     uint[] public item_ids = [0,1,2,3,4,5,6,7];
 
     function all_tree_burn() public {
