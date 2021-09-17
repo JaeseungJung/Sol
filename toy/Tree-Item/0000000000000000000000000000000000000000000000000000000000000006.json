@@ -1,6 +1,7 @@
 {
   "description": "Diamond minted by Nextree",
   "external_url": "https://testnets.opensea.io/3",
-  "image": "https://blog.kakaocdn.net/dn/c90MX3/btqX319ryJc/8R0TA5BsNtxMWiQINcggr0/img.png",
+  "image": "https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Tree-Item/svg/diamond.svg",
+
   "name": "Diamond"
 }

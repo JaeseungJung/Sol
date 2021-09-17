@@ -1,6 +1,7 @@
 {
-  "description": "Draw Ticket minted by Nextree",
+  "description": "Key minted by Nextree",
   "external_url": "https://testnets.opensea.io/3",
-  "image": "https://www.x-legend.com/aurakingdom2/kr/event/register/images/invite-prize-4.png",
-  "name": "Draw Ticket"
+  "image": "https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Tree-Item/svg/key.svg",
+
+  "name": "Nextree Key"
 }

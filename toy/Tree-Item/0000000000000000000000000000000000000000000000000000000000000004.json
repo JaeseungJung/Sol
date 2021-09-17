@@ -1,6 +1,7 @@
 {
   "description": "Gold",
   "external_url": "https://testnets.opensea.io/3",
-  "image": "https://opgg-com-image.akamaized.net/attach/images/20200605124351.941855.jpg",
+  "image": "https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Tree-Item/svg/gold.svg",
+
   "name": "Gold"
 }
