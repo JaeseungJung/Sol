@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./LinkTokenInterface.sol";
-
-import "./VRFRequestIDBase.sol";
+import "https://github.com/JaeseungJung/Sol/blob/main/toy/Tree-Item/VRFRequestIDBase.sol";
+import "https://github.com/JaeseungJung/Sol/blob/main/toy/Tree-Item/LinkTokenInterface.sol";
 
 
 abstract contract VRFConsumerBase is VRFRequestIDBase {
