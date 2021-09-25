@@ -25,7 +25,7 @@ abstract contract VRFConsumerBase is VRFRequestIDBase {
   LinkTokenInterface internal immutable LINK;
   address private immutable vrfCoordinator;
 
-  
+   mapping(bytes32 => uint256)
     private nonces;
 
   
