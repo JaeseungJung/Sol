@@ -55,7 +55,6 @@ contract TreeItems_0925 is ERC1155, VRFConsumerBase{
         uint isRandomUsed;
     }
     
-  
     
     modifier onlyAdmin () {
         require(isAdmin[msg.sender] == 1);
