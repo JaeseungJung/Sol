@@ -12,7 +12,6 @@ event Instrunctor(string name, uint age);
         fName = _fName;
         age = _age;
         emit Instrunctor(_fName, _age)
-
 }
 
  function getInstructor() view public returns (string memory, uint) {
