@@ -303,7 +303,6 @@ contract TreeItems_0925 is ERC1155, VRFConsumerBase{
       
         randomResult_chk[msg.sender].isRandomUsed = 1;
         randomResult_chk[msg.sender].doubleCheck = 0;
- 
     }
   
     function withdraw() public onlyAdmin {
