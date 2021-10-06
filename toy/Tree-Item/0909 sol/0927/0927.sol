@@ -273,7 +273,6 @@ contract TreeItems_0925 is ERC1155, VRFConsumerBase{
             _safeTransferFrom(owner, msg.sender, 5, (treeNumber%10**6)/100000, "");
             //diamonNumber
             _safeTransferFrom(owner, msg.sender, 6, treeNumber/10**6, "");
-        
         }
     }
     
