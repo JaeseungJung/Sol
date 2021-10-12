@@ -2,13 +2,16 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/VRFConsumerBase.sol";
 
-contract D-Research is ERC1155, VRFConsumerBase{
+contract TreeItems_0925 is ERC1155, VRFConsumerBase{
     
     uint[] private item_ids = [0,1,2,3,4,5,6,7];
     uint[] private art_ids;
 
     address public owner;
+    
+    address vrfaddr;
 
     uint256 private constant Baby = 0;
     uint256 private constant Iron = 1;
@@ -19,6 +22,11 @@ contract D-Research is ERC1155, VRFConsumerBase{
     uint256 private constant Diamond = 6;
     uint256 private constant Draw_Key = 7;
     
+    bytes32 internal keyHash;
+    uint256 internal fee;
+    
+    uint256 private randomResult;
+    
     uint private total_Planted;
     
     uint[] private prize_Box;
@@ -28,12 +36,16 @@ contract D-Research is ERC1155, VRFConsumerBase{
     uint private Event_Reward;
     
     mapping(address => uint) private balances;
+    mapping(address => uint) private ticket_Chekcer;
     mapping(address => uint) private isAdmin;
     mapping(address => uint) private isArtist;
     
     mapping(address => uint) private my_Planted;
     mapping(address => string) private donor_Name;
 
+    mapping(address => uint) private order;
+    mapping(bytes32 => address) private ordernum;
+    mapping(address => radper_chk) private randomResult_chk;
 
     
     struct radper_chk{
@@ -50,9 +62,19 @@ contract D-Research is ERC1155, VRFConsumerBase{
         _;
     }
     
- 
+    modifier onlyArtist () {
+        require(isArtist[msg.sender] == 1);
+        _;
+    }
+
+    modifier onlyArtist_Or_Admin () {
+        require(isArtist[msg.sender] == 1 || isAdmin[msg.sender] == 1);
+        _;
+    }
     
-    constructor() public ERC1155("https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/D-Research/{id}.json")
+    constructor() public ERC1155("https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Tree-Item/{id}.json")
+                        VRFConsumerBase(0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B, // VRF Coordinator
+                        0x01BE23585060835E02B77ef475b0Cc51aA1e0709  // LINK Token
         )
     {
         _mint(msg.sender, Baby, 10**14, "");
@@ -64,6 +86,8 @@ contract D-Research is ERC1155, VRFConsumerBase{
         _mint(msg.sender, Diamond, 10**2, "");
         _mint(msg.sender, Draw_Key, 10**18, "");
         
+        keyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
+        fee = 0.1 * 10 ** 18; 
       
         owner = msg.sender;
         // Jung, Kim, Choi, Hong
@@ -78,10 +102,26 @@ contract D-Research is ERC1155, VRFConsumerBase{
         isAdmin[0xC0fb13D9c0E235f81b8D2851cBEd9F5a5ED29707] = 1;
     }
 
- 
+    function getRandomNumber() public returns (bytes32 requestId) {
+        require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK");
+        require(randomResult_chk[msg.sender].chk == false,"RandomNumber is generating");
+        require(randomResult_chk[msg.sender].doubleCheck == 0,"you have unused RandNumber already");
+         _safeTransferFrom(msg.sender, owner, 7, 1 , "");
+        
+        ordernum[requestRandomness(keyHash, fee)] = msg.sender;
+        randomResult_chk[msg.sender].chk = true;
+    }
 
-  
- 
+    function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
+        randomResult_chk[ordernum[requestId]].requestNumber = (randomness % 50) + 1;
+        randomResult_chk[ordernum[requestId]].chk = false;
+        randomResult_chk[ordernum[requestId]].doubleCheck = 1;
+        randomResult_chk[ordernum[requestId]].isRandomUsed = 0;
+    }
+    
+    function getmyRandomKey() private view returns(uint256){
+       return randomResult_chk[msg.sender].requestNumber;
+    }
     
     function art_Nft_Mint() private onlyArtist_Or_Admin  { 
         art_ids.push(next_Art_Id);
@@ -111,7 +151,10 @@ contract D-Research is ERC1155, VRFConsumerBase{
         isAdmin[who] = 1;
     }
     
-   
+    function setArtist(address who) private onlyAdmin {
+        isArtist[who] = 1;
+    }
+    
    function event_Nft_Mint(uint amount) private onlyAdmin  { 
     require( item_ids.length < 999, "");   
     item_ids.push(next_Event_Nft_Id);
