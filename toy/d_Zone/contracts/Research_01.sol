@@ -56,7 +56,7 @@ contract D_Research is ERC1155 {
         research_Info[_r_Id].is_Applied[msg.sender] = 1;
    }
 
-   function VC_Create(uint _vc_Id, string memory _uri) public { 
+   function VC_Register(uint _vc_Id, string memory _uri) public { 
         user_To_Vc[msg.sender].is_Member = 1;
 
         if (_vc_Id == 1) {

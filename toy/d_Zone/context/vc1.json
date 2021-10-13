@@ -1,0 +1,34 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://identity.foundation/EcdsaSecp256k1RecoverySignature2020/lds-ecdsa-secp256k1-recovery2020-0.0.jsonld"
+  ],
+  "id": "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a",
+  "verificationMethod": [
+    {
+      "id": "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#controller",
+      "type": "EcdsaSecp256k1RecoveryMethod2020",
+      "controller": "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a",
+      "blockchainAccountId": "0xb9c5714089478a327f09197987f16f9e5d936e8a"
+    }
+  ],
+  "credentialSubject": [
+    "givenName": "Jane",
+    "familyName": "Doe",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts",
+      "college": "College of Engineering"
+    }
+    "age" : 20,
+    "gender" : "female",
+    "region" : "Seoul",
+
+  ],
+  "authentication": [
+    "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#controller"
+  ],
+  "assertionMethod": [
+    "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#controller"
+  ]
+}

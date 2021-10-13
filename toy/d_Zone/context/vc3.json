@@ -1,0 +1,80 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://identity.foundation/EcdsaSecp256k1RecoverySignature2020/lds-ecdsa-secp256k1-recovery2020-0.0.jsonld"
+  ],
+  "id": "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a",
+  "verificationMethod": [
+    {
+      "id": "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#controller",
+      "type": "EcdsaSecp256k1RecoveryMethod2020",
+      "controller": "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a",
+      "blockchainAccountId": "0xb9c5714089478a327f09197987f16f9e5d936e8a"
+    }
+  ],
+  "credentialSubject": [
+    // vc1
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts",
+      "college": "College of Engineering"
+    },
+    "age" : 20,
+    "gender" : "female",
+    "region" : "Seoul",
+
+    // vc2
+
+    "estate" : {
+      "own_Car" : true,
+      "own_House" : false,
+      "year_Wage" : 3600,
+    },
+
+    "family" : {
+    "family_Number" :4,
+    "child_Number" : 1,
+    "child_Age" : 4,
+    },
+
+    // vc3
+    "phone" : {
+      "os" : "android",
+      "brand" : "Samsung",
+      "model" : "S21",
+      "period" : "12"
+    },
+
+    "car" : {
+      "brand" : "Hyundai",
+      "model" : "Genesis",
+      "period" : "24"
+    },
+    
+    "tv" : {
+      "tv_Brand" : "LG",
+      "panel_Type" : "OLED",
+      "size_Inch" : "52"
+    },
+
+    "bank" : {
+      "main_Bank" : "NH",
+      "sub_Bank" : "Shin-han",
+      "is_Use_MoblieApp" : "True",
+      "is_Use_PayService" "True",
+    },
+
+    "smoke" : {
+      "is_electronic" : true,
+      "elcect_Brand" : "I-coss"
+    },
+
+    
+  ],
+  "authentication": [
+    "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#controller"
+  ],
+  "assertionMethod": [
+    "did:ethr:0xb9c5714089478a327f09197987f16f9e5d936e8a#controller"
+  ]
+}
