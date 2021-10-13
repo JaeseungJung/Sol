@@ -60,8 +60,8 @@
     "bank" : {
       "main_Bank" : "NH",
       "sub_Bank" : "Shin-han",
-      "is_Use_MoblieApp" : "True",
-      "is_Use_PayService" "True",
+      "is_Use_MoblieApp" : true,
+      "is_Use_PayService" : true,
     },
 
     "smoke" : {
