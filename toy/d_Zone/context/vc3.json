@@ -24,7 +24,6 @@
     "region" : "Seoul",
 
     // vc2
-
     "estate" : {
       "own_Car" : true,
       "own_House" : false,
