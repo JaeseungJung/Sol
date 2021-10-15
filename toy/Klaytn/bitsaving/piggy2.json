@@ -1,0 +1,30 @@
+{
+  "name": "CHECK MATE",
+  "description": "Jason이 Klip 및 Klaytn의 NFT 커뮤니티 발전에 기여해주신 분께 선사하는 특별한 선물입니다. LAYLAY 작가와의 콜라보를 통해 Klip Drops 설문 이벤트(21.08.02 - 21.08.22)에 참여한 분들의 모습을 작품으로 탄생 시켜 Klaytn 블록체인에 영원히 새겼습니다.",
+  "image": "https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Klaytn/bitsaving/gold-piggy.png",
+  "background_color": "#000000",
+  "attributes": [
+    { "trait_type": "작품 명", "value": "CHECK MATE" },
+    {
+      "trait_type": "작품 설명",
+      "value": "'CHECK MATE'는 '체크하는 우리의 친구'라는 뜻입니다. 또한 체스 게임에서 승리 직전에 플레이어가 외치는 말이며, 이는 소망의 실현을 표현하기도 합니다. 〈CHECK MATE〉 작품에서는 설문에서 체크한 대로 현실에서 이루어지는 초능력을 가진 히어로가 등장하며, 설문에 참여한 많은 이들의 지혜가 모여 점점 디지털 아트 생태계가 성장하는 것을 보여줍니다(첫 번째 설문 체크를 통해 전시 플랫폼이 만들어지고, 두 번째 설문 체크를 통해 다양한 작품이 등장합니다. 마지막 세 번째 설문 체크를 통해 많은 사람들로부터 작품이 관심을 받고 생태계가 풍성해지는 모습을 표현하였습니다). 많은 이들의 참여를 통해 발전되는 이 생태계는, 우리 모두가 히어로라는 메시지를 담고 있습니다."
+    },
+    {
+      "trait_type": "작가 소개",
+      "value": "LAYLAY 작가는 평소 삶 속에서 상상해왔던 간절한 소망을 '마이너한 초능력을 가진 히어로'란 컨셉의 디지털아트로 표현하고 있습니다. 작가의 참신한 발상과 픽셀 아트적 표현은 국내외 팬들에게 공감대를 형성하며 호평을 받아, 글로벌 플랫폼인 OpenSea에서 솔드아웃되고 있으며 2차 거래도 활발히 이루어지고 있습니다. 평범한 삶 속의 기발한 초능력을 가진 작품 속 주인공들에게는 많은 사람에게 희망을 전해주고픈 작가의 마음이 담겨 있습니다."
+    },
+    {
+      "trait_type": "작가 인사말",
+      "value": "디지털아트라는 매체를 통해 만나는 여러분과의 인연은 너무나 특별하게 느껴집니다. 이렇게 함께하는 소중한 시간 속에서, 뜻 깊은 작품으로 동참하게 되어 영광입니다."
+    },
+    {
+      "trait_type": "Jason 인사말",
+      "value": "Klip Drops 설문에 참여해 주셔서 감사합니다. 한분 한분의 소중한 의견을 잘 반영하여 더 좋은 서비스로 보답하겠습니다. 앞으로도 Klip Drops에 많은 관심과 응원 부탁드립니다."
+    }
+  ],
+  "hashtags": ["Jaosn", "LAYLAY", "KlipDrops", "Survey"],
+  "sendable": true,
+  "send_friend_only": false,
+  "external_link": "",
+  "animation_url": "https://media.klipwallet.com/card_asset/1273907/b6bf9585-10bb-46a0-9abb-324e157d26be.MP4"
+}
