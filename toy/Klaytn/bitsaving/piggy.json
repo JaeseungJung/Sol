@@ -1,0 +1,14 @@
+{
+    "name": "silver piggy bank",
+    "description": "비트세이빙 90일 달성 기념 NFT",
+    "image": "https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Klaytn/bitsaving/silver-piggy.png",
+    "background_color": "#000000",
+    "attributes": [
+    
+    ],
+    "hashtags": ["btcsaving",],
+    "sendable": true,
+    "send_friend_only": false,
+    "external_link": "",
+  }
+  
