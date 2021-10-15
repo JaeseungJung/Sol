@@ -1,8 +1,8 @@
 {
-  "name": "CHECK MATE",
-  "description": "Jason이 Klip 및 Klaytn의 NFT 커뮤니티 발전에 기여해주신 분께 선사하는 특별한 선물입니다. LAYLAY 작가와의 콜라보를 통해 Klip Drops 설문 이벤트(21.08.02 - 21.08.22)에 참여한 분들의 모습을 작품으로 탄생 시켜 Klaytn 블록체인에 영원히 새겼습니다.",
+  "name": "Gold Piggy",
+  "description": "금색 돼지 저금통",
   "image": "https://raw.githubusercontent.com/JaeseungJung/Sol/main/toy/Klaytn/bitsaving/gold-piggy.png",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
   "attributes": [
     { "trait_type": "작품 명", "value": "CHECK MATE" },
     {
