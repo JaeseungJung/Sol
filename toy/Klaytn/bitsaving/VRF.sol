@@ -5,9 +5,15 @@ import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 
 /**
  * THIS IS AN EXAMPLE CONTRACT WHICH USES HARDCODED VALUES FOR CLARITY.
- * PLEASE DO NOT USE THIS CODE IN PRODUCTION.
+ * PLEASE DO NOT USE THIS CODE IN PRODUCTION. 
  */
+
 contract RandomNumberConsumer is VRFConsumerBase {
+    
+ 
+    uint[] public winners;
+    uint public max_Num;
+
     
     bytes32 internal keyHash;
     uint256 internal fee;
@@ -27,9 +33,17 @@ contract RandomNumberConsumer is VRFConsumerBase {
             0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B, // VRF Coordinator
             0x01BE23585060835E02B77ef475b0Cc51aA1e0709  // LINK Token
         ) public
+        
     {
         keyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
         fee = 0.1 * 10 ** 18; // 0.1 LINK (Varies by network)
+    }
+    
+ 
+    
+    function set_Maxrange(uint _number) public{
+    max_Num = _number;
+        
     }
     
     /** 
@@ -44,7 +58,8 @@ contract RandomNumberConsumer is VRFConsumerBase {
      * Callback function used by VRF Coordinator
      */
     function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
-        randomResult = (randomness % 50) + 1;
+        randomResult = (randomness % max_Num) + 1;
+        winners.push(randomResult);
     }
 
     // function withdrawLink() external {} - Implement a withdraw function to avoid locking your LINK in the contract
