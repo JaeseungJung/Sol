@@ -1,4 +1,5 @@
 {
+  
   "name": "호수",
   "description": "베트남호수 예쁘죠",
   "image": "https://cdn.krafter.space/0xe884851e%ED%92%8D%EA%B2%BD.jpg",
@@ -8,4 +9,5 @@
   "send_friend_only": true,
   "external_link": "",
   "external_url": ""
+
 }
