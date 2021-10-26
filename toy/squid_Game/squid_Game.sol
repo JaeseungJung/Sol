@@ -31,8 +31,6 @@ interface IERC165 {
 
 
 
-
-
 /**
  * @dev Required interface of an ERC721 compliant contract.
  */
