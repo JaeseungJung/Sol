@@ -13,8 +13,10 @@ contract RandomNumberConsumer is VRFConsumerBase {
     
  
     uint [] public winners;
+    uint public min_Num;
     uint public max_Num;
     address public owner;
+
 
     
     bytes32 internal keyHash;
@@ -62,8 +64,9 @@ contract RandomNumberConsumer is VRFConsumerBase {
     
  
     
-    function set_Maxrange(uint _number) public onlyOwner{
-    max_Num = _number;
+    function set_range(uint _min, uint _max) public onlyOwner{
+    min_Num = _min;
+    max_Num = _max;
     }
     
      function check_Winners () public returns ( uint  [] memory) {
@@ -83,7 +86,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
      * Callback function used by VRF Coordinator
      */
     function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
-        randomResult = (randomness % max_Num) + 1;
+        randomResult = (randomness % max_Num) + min_Num;
         winners.push(randomResult);
     }
 
