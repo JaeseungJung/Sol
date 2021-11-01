@@ -17,8 +17,6 @@ contract RandomNumberConsumer is VRFConsumerBase {
     uint public plus_Num;
     address public owner;
 
-
-    
     bytes32 internal keyHash;
     uint256 internal fee;
     
