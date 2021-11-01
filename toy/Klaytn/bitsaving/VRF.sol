@@ -14,7 +14,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
     uint[] public winners;
     uint public max_Num;
 
-    
+
     bytes32 internal keyHash;
     uint256 internal fee;
     
