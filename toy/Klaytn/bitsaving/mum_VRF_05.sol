@@ -57,9 +57,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
         fee = 0.1 * 10 ** 15; // 0.0001 LINK (Varies by network)
         
         owner = msg.sender;
-
     }
-    
  
     
     function set_range(uint _min, uint _plus) public onlyOwner{
