@@ -58,7 +58,6 @@ contract RandomNumberConsumer is VRFConsumerBase {
         
         owner = msg.sender;
     }
-    
  
     
     function set_range(uint _min, uint _plus) public onlyOwner{
