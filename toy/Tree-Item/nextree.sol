@@ -10,7 +10,6 @@ contract TreeItems_0925 is ERC1155, VRFConsumerBase{
     uint[] private art_ids;
 
     address public owner;
-    
     address vrfaddr;
 
     uint256 private constant Baby = 0;
