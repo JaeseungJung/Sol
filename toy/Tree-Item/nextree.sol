@@ -38,7 +38,6 @@ contract TreeItems_0925 is ERC1155, VRFConsumerBase{
     mapping(address => uint) private ticket_Chekcer;
     mapping(address => uint) private isAdmin;
     mapping(address => uint) private isArtist;
-    
     mapping(address => uint) private my_Planted;
     mapping(address => string) private donor_Name;
 
