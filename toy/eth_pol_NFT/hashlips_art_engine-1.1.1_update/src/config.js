@@ -6,7 +6,7 @@ const network = NETWORK.eth;
 
 // General metadata for Ethereum
 const namePrefix = "Btc Pig";
-const description = "Pig Character NFT loves Btc";
+const description = "Pig Character NFT loving Bitcoin & eth";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
