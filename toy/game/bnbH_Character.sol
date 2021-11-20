@@ -4,6 +4,7 @@
 
 // File: ../../../.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.1.0/contracts/proxy/Proxy.sol
 
+// contract address : 0x6da72f24c56197dcf6b8920bacb183f6ccca8b01
 
 pragma solidity ^0.8.0;
 
