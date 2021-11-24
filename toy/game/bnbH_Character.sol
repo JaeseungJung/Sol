@@ -1,10 +1,11 @@
 /**
  *Submitted for verification at BscScan.com on 2021-05-03
-*/
+
 
 // File: ../../../.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.1.0/contracts/proxy/Proxy.sol
 
 // character contract address : 0x6da72f24c56197dcf6b8920bacb183f6ccca8b01
+https://bscscan.com/address/0x6da72f24c56197dcf6b8920bacb183f6ccca8b01
 
 // library : 
 // 0x488e26954C5C710E1156FE1809e3a9085E9162cA
@@ -13,6 +14,8 @@
 // pool
 // 0xdE8c58d082d39D04DC2e5241a3a65911454674CD
 // https://bscscan.com/address/0xdE8c58d082d39D04DC2e5241a3a65911454674CD
+
+*/
 
 pragma solidity ^0.8.0;
 
