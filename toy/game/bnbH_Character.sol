@@ -9,15 +9,15 @@ https://bscscan.com/address/0x6da72f24c56197dcf6b8920bacb183f6ccca8b01
 
 // library : 
 // 0x488e26954C5C710E1156FE1809e3a9085E9162cA
-// https://bscscan.com/address/0x488e26954C5C710E1156FE1809e3a9085E9162cA#code
+https://bscscan.com/address/0x488e26954C5C710E1156FE1809e3a9085E9162cA#code
 
 // pool
 // 0xdE8c58d082d39D04DC2e5241a3a65911454674CD
-// https://bscscan.com/address/0xdE8c58d082d39D04DC2e5241a3a65911454674CD
+https://bscscan.com/address/0xdE8c58d082d39D04DC2e5241a3a65911454674CD
 
 
 // market
-// 0x5cffca0321b83dc873bd2439ae7fea10ae163fac
+0x5cffca0321b83dc873bd2439ae7fea10ae163fac
 https://bscscan.com/token/0x5cffca0321b83dc873bd2439ae7fea10ae163fac
 
 */
