@@ -5,7 +5,6 @@
 // File: ../../../.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.1.0/contracts/proxy/Proxy.sol
 
 // character contract address : 0x6da72f24c56197dcf6b8920bacb183f6ccca8b01
-// https://bscscan.com/address/0x6da72f24c56197dcf6b8920bacb183f6ccca8b01#code
 
 // library : 
 // 0x488e26954C5C710E1156FE1809e3a9085E9162cA
