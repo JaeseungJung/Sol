@@ -1,0 +1,55 @@
+{
+  "name": "Btc Pig #48",
+  "description": "Pig Character NFT loves Btc",
+  "image": "ipfs://NewUriToReplace/48.png",
+  "dna": "4eb3671d23f2d9ccce5fdaddeb8709a9ed8b3535",
+  "edition": 48,
+  "date": 1636638399782,
+  "attributes": [
+    {
+      "trait_type": "bg",
+      "value": "geo02"
+    },
+    {
+      "trait_type": "body",
+      "value": "_0023_body"
+    },
+    {
+      "trait_type": "mouth",
+      "value": "_0017_mouth_03"
+    },
+    {
+      "trait_type": "shirts",
+      "value": "_0011_shirt_07_pink"
+    },
+    {
+      "trait_type": "beard",
+      "value": "0"
+    },
+    {
+      "trait_type": "coat",
+      "value": "_0007_coat_01_white"
+    },
+    {
+      "trait_type": "eye",
+      "value": "_0021_eye_blue_brown_01"
+    },
+    {
+      "trait_type": "glasses",
+      "value": "_0002_glasses_01"
+    },
+    {
+      "trait_type": "hair",
+      "value": "_0006_hairstyle_01_blond"
+    },
+    {
+      "trait_type": "hat",
+      "value": "_0003_hat_06_beige_black"
+    },
+    {
+      "trait_type": "pet",
+      "value": "0"
+    }
+  ],
+  "compiler": "HashLips Art Engine"
+}
