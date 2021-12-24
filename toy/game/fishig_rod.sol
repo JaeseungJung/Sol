@@ -5,7 +5,8 @@ interacter
 rod
 https://bscscan.com/address/0x535fa6279b4a260b42379e05e8bcc0573ed0a70d#code
 
-
+Dev wallet
+https://poocoin.app/rugcheck/0x87be0b856960f57fb0104ef0922cd1dacbd37f64/dev-activity?wallet=0xC8f6E42276C5a6864DAd8101971301e04cDcA1b4
 
 
 /**
