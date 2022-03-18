@@ -18,7 +18,6 @@ Gas Fees:
 Base: 273.212143326 Gwei |Max: 1,861.195615732 Gwei |Max Priority: 1,644.45323802 Gwei
 
 
-
 // SPDX-License-Identifier: MIT
 
 // Into the Metaverse NFTs are governed by the following terms and conditions: https://a.did.as/into_the_metaverse_tc
