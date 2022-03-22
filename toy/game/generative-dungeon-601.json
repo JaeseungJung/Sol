@@ -1,0 +1,41 @@
+https://etherscan.io/token/0x18487d2cac946c7fe800855c4039aac210f68baa?a=601#readContract
+
+
+{
+  "platform": "Generative Dungeon",
+  "name": "Dungeon #601",
+  "background_color": "000000",
+  "curation_status": "curated",
+  "series": "1",
+  "description": "Artwork you can play! This is the 601st NFT of the Generative Dungeon series, a collection of iterative, interactive dungeon-themed NFTs. Touch or click the viewport to interact with the NFT. To play in fullscreen, visit https://viewer.generativedungeon.com/601",
+  "external_url": "https://viewer.generativedungeon.com/601",
+  "collection_name": "Generative Dungeon",
+  "attributes": [
+    {
+      "trait_type": "Tileset",
+      "value": "EGA"
+    },
+    {
+      "trait_type": "Levels",
+      "value": "Below 20"
+    },
+    {
+      "trait_type": "Character",
+      "value": "Adventurer"
+    },
+    {
+      "trait_type": "Start",
+      "value": "Wilderness"
+    },
+    {
+      "trait_type": "Scroll",
+      "value": "Lesser Heal"
+    }
+  ],
+  "animation_url": "https://viewer.generativedungeon.com/601",
+  "image": "https://images.generativedungeon.com/601",
+  "interactive_nft": {
+    "code_uri": "https://viewer.generativedungeon.com/601",
+    "version": "1.0"
+  }
+}
