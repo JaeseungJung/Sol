@@ -1,0 +1,101 @@
+.container{
+    width: 100%;
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* box-sizing: border-box; */
+    /* position: relative; */
+}
+.createContainer{
+    position:unset;
+    width: 65%;
+    
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.mainContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-items: center;
+    margin: 40px 0;
+}
+.mainContainer h1 {
+    font-weight: 700;
+}
+.require {
+    color: crimson;
+    /* font-size: 10px; */
+}
+
+.selectFile label {
+    display: flex; 
+    width: 300px;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 1em;
+    color: #999; 
+    font-size: inherit; 
+    line-height: normal; 
+    vertical-align: middle; 
+    background-color: #fdfdfd;
+    cursor: pointer; 
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2; border-radius: .25em;
+    border-radius: 12px;
+} 
+.selectFile label:hover{
+    background-color: #e2e2e2;
+}
+
+.selectFile input[type="file"] { 
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden; 
+    clip:rect(0,0,0,0); border: 0;
+}
+.selectFile img {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    padding: 0.5em 0.5em;
+    border-radius: 12px;
+}
+
+.grayFont{
+    color: rgba(0, 0, 0, 0.6);
+}
+.contentFont {
+    font-size: 24px;
+    font-weight: 500;
+}
+.contentContainer{
+    margin: 25px 0;
+}
+.contentValue {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px 0;
+}
+.completedContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0;
+    font-weight: 600;
+    font-size: 34px;
+}

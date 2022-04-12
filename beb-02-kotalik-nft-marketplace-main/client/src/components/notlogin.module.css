@@ -1,0 +1,25 @@
+.container{
+    margin-top: 100px ;
+    height: 530px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.errorFont{
+    font-size: 38px;
+    color: #f03e3e;
+    font-weight: 600;
+}
+.btnContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}

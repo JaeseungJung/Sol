@@ -1,0 +1,68 @@
+.profileContainer {
+    position:inherit;
+    width: 100%;
+    height: 400px;
+    background-color: #E5E8EB;
+}
+.topContainer {
+    height: 45%;
+    background-color: #E5E8EB;
+}
+.middleContainer{
+    display: none;
+    height: 0.01%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottomContainer{
+    height: 60%;
+    background-color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 0.5px solid #2c2c2c;
+    
+}
+.useContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 60px;
+}
+.nameFont{
+    font-size: 24px;
+    font-weight: 500;
+}
+.contentContainer {
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tokenContainer{
+    margin-top: 20px;
+    min-height: 300px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tokenFont{
+    font-size: 28px;
+    font-weight: 500;
+}
