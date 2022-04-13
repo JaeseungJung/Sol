@@ -14,8 +14,12 @@ function MyApp({ Component, pageProps }) {
   const [web3, setWeb3] = useState();
   const [account, setAccount] = useState("");
   const [tokenContract, setTokenContract] = useState();
-  const [newErc721addr, setNewErc721Addr] = useState("0x787b226eA9B0c0b8f3558EA4b9aE088fDE7B7b3B");
-  const [newKip17addr, setNewKip17Addr] = useState("0x5D5232969dAb1134c25b2847A0490686A425561A");
+  const [newErc721addr, setNewErc721Addr] = useState(
+    "0x787b226eA9B0c0b8f3558EA4b9aE088fDE7B7b3B"
+  );
+  const [newKip17addr, setNewKip17Addr] = useState(
+    "0x5D5232969dAb1134c25b2847A0490686A425561A"
+  );
   const [totalToken, setTotalToken] = useState([]);
   const [myToken, setMyToken] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
@@ -23,6 +27,7 @@ function MyApp({ Component, pageProps }) {
   const [caver, setCaver] = useState();
   const router = useRouter();
   let accounts;
+  //
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       try {
@@ -130,7 +135,12 @@ function MyApp({ Component, pageProps }) {
           walletType={walletType}
         />
       ) : (
-        <Notlogin isLogin={isLogin} setIsLogin={setIsLogin} connectWallet={connectWallet} connectKaikas={connectKaikas} />
+        <Notlogin
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+          connectWallet={connectWallet}
+          connectKaikas={connectKaikas}
+        />
       )}
 
       <Footer />
