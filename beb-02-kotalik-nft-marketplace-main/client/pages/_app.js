@@ -64,6 +64,8 @@ function MyApp({ Component, pageProps }) {
     setAccount(accounts[0]);
     setWalletType("eth");
   };
+
+  // 카이카스
   const connectKaikas = async () => {
     accounts = await klaytn.enable();
     setAccount(accounts[0]);
