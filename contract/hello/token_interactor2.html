@@ -1,0 +1,1003 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<title>ERC20 Token Interactor</title>
+
+<!-- Bootstrap CSS -->
+<link
+href="https://bootswatch.com/_assets/css/custom.min.css"
+rel="stylesheet"
+/>
+<link
+href="https://bootswatch.com/5/vapor/bootstrap.css"
+rel="stylesheet"
+/>
+<link
+href= "https://bootswatch.com/_vendor/prismjs/themes/prism-okaidia.css"
+rel="stylesheet"
+/>
+<link
+href= "https://bootswatch.com/_vendor/font-awesome/css/font-awesome.min.css"
+rel="stylesheet"
+/>
+
+<script src="./lib/web3.min.js"></script>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ERC20 Token Interactor 🍇</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarColor01"
+        aria-controls="navbarColor01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+      <div class="container"></div>
+
+      <div class="container">
+    <button class="btn btn-secondary"  onclick="init()">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+  <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+    <!-- <button class="btn btn-secondary" onclick="totalSupply()">Total Token Supply</button> -->
+
+    </div>
+
+    <div class="container">
+     
+    </div>
+
+    <div class="container">
+      
+    </div>
+    <div class="container">
+      
+    </div>
+  </div>
+
+  
+
+  <br>
+
+  <div style="margin-left: 20px;">
+  
+  <div>
+    <input type="text" id="contract_Input" placeholder="contract address"/>
+    <button class="btn btn-secondary" onclick="getContract()">contract connect</button>
+  </div>
+  <br>
+  <div>
+    <input type="text" id="balanceOf_Input" placeholder="address"/>
+
+    <button class="btn btn-secondary" onclick="balanceOf()">balance check</button>
+    
+  </div>
+  <br>
+
+  <div>
+    <input type="text" id="transfer_R_Add" placeholder="receiver address"/>
+    <input type="text" id="transfer_Amount" placeholder="token amount"/>
+
+    <button class="btn btn-secondary" onclick="transfer()">transfer </button>
+  </div>
+  <br>
+  <div>
+    <input type="text" id="lock_Reciver_Address" placeholder="lock address"/>
+    <input type="text" id="lock_Amount" placeholder="lock amount"/>
+    <input type="text" id="release_Time" placeholder="release Time"/>
+
+
+    <button class="btn btn-secondary" onclick="lock()">lock </button>
+  </div>
+
+
+
+
+
+  <div>
+    <label> [MESSAGE] </label>
+    <div id="account"></div>
+<br>
+    <div style="margin-left: 20px;">
+    <div id="contract"></div>
+    <div id="token_name"></div>
+    <div id="token_symbol"></div>
+
+    <div id="totalSupply_Data"></div>
+  </div>
+    <div style="margin-left: 30px;" id="balance"></div>
+  </div>
+  <br>
+</div>
+  <div style="margin-left: 40px;" id="eventResult"></div>
+</div>
+
+
+</div>
+</body>
+
+<script type="text/javascript">
+
+  let provider;
+  let web3;
+  let account;
+  let contract;
+
+ async function init() {
+
+  if (window.ethereum) {
+      web3 = new Web3(window.ethereum);
+      try {
+        // Request account access if needed
+        await window.ethereum.enable();
+        // Acccounts now exposed
+        web3.eth.getAccounts().then(function(accounts){
+          account = accounts[0]
+          document.getElementById("account").innerText = "Connected Account Address: " + account
+        })
+      } catch (error) {
+      }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+      // Use Mist/MetaMask's provider.
+      web3 = window.web3;
+      console.log("Injected web3 detected.");
+    }
+  }
+
+  
+  
+  function getContract() {
+    let abi =[
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			}
+		],
+		"name": "autoUnlock",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "burn",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "burnFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "subtractedValue",
+				"type": "uint256"
+			}
+		],
+		"name": "decreaseAllowance",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "Freeze",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "freezeAccount",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "addedValue",
+				"type": "uint256"
+			}
+		],
+		"name": "increaseAllowance",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "releaseTime",
+				"type": "uint256"
+			}
+		],
+		"name": "lock",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "releaseTime",
+				"type": "uint256"
+			}
+		],
+		"name": "Lock",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "pause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "Paused",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			}
+		],
+		"name": "releaseLock",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "releaseTime",
+				"type": "uint256"
+			}
+		],
+		"name": "transferWithLock",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "Unfreeze",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "unfreezeAccount",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "idx",
+				"type": "uint256"
+			}
+		],
+		"name": "unlock",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "Unlock",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "unpause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "Unpaused",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "balanceOfTotal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "holder",
+				"type": "address"
+			}
+		],
+		"name": "isFrozen",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "frozen",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "locked",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "lockInfo",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "releaseTime",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "paused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "locked",
+				"type": "address"
+			}
+		],
+		"name": "totalLocked",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "length",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+    var connected_Contract = document.getElementById("contract_Input").value
+    contract = new web3.eth.Contract(abi, connected_Contract)
+    document.getElementById("contract").innerText = "Token Contract: "+ contract._address
+    // console.log(contract)
+
+    contract.methods.totalSupply().call()
+    .then(function(result){
+      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
+    });
+
+   
+    get_TokenInfo ()
+
+    yourBalanceOf()
+
+
+    // listen event
+    // contract.events.SetName({}, function(error, event){ 
+    //   console.log(event)
+    //   document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
+    // })
+    // document.getElementById("eventResult").innerText = "Listening..."
+  }
+   
+  function balanceOf(){
+    let account_bal = document.getElementById("balanceOf_Input").value
+    
+    contract.methods.balanceOf(account_bal).call()
+    .then(function(result){
+      document.getElementById("balance").innerText =  account_bal + "'s balance is "+ result
+    });
+  }
+  
+  async function get_TokenInfo (){
+    let tokenName = await contract.methods.name().call();
+    let tokenSymbol = await contract.methods.symbol().call();
+
+      document.getElementById("token_name").innerText = "Token Name: " + tokenName
+      document.getElementById("token_symbol").innerText = "Token Symbol: " + tokenSymbol
+
+      
+  }
+
+  function yourBalanceOf(){
+    web3.eth.getAccounts().then(function(accounts){
+          account = accounts[0]
+          // console.log(account)
+          document.getElementById("account").innerHTML = 
+          "Connected Account Address: " + account
+        })
+          
+    
+    contract.methods.balanceOf(account).call()
+    .then(function(result){
+      document.getElementById("balance").innerText =  "your balance is "+ result
+    });
+  }
+
+  function totalSupply(){
+    
+    contract.methods.totalSupply().call()
+    .then(function(result){
+      document.getElementById("totalSupply_Data").innerText ="total Supply: " + result
+    });
+  }
+  
+  function transfer() {
+    let reciverAddress = document.getElementById("transfer_R_Add").value
+    let transferAmount= document.getElementById("transfer_Amount").value 
+
+    contract.methods.transfer(reciverAddress,transferAmount).send(
+      {from: account}
+    ).then(function(receipt){
+    document.getElementById("eventResult").innerText = reciverAddress + "에게"  + " 토큰 " + transferAmount + "개 전송 완료."
+
+    }).on('error', function(){
+      
+    })
+    
+
+
+  }
+
+
+  function lock() {
+    let lockReciverAddress = document.getElementById("lock_Reciver_Address").value
+    let lockAmount= document.getElementById("lock_Amount").value 
+    let releaseTime= document.getElementById("release_Time").value 
+
+    contract.methods.lock(lockReciverAddress,lockAmount,releaseTime).send(
+      {from: account}
+    ).then(function(receipt){
+
+    }).on('error', function(){
+      
+    })
+    
+
+
+  }
+
+  
+
+</script>
+
+<style>
+.btn-secondary {
+     border-radius: 16px;
+    }
+
+    body {
+    padding-top: 0px;
+}
+</style>
+</html>
