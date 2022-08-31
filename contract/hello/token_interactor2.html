@@ -104,6 +104,8 @@ rel="stylesheet"
 
 
     <button class="btn btn-secondary" onclick="lock()">lock </button>
+	<button class="btn btn-secondary" onclick="times_lock()">20-lock </button>
+	
   </div>
 
 
@@ -987,7 +989,23 @@ rel="stylesheet"
 
   }
 
-  
+  function times_lock() {
+    let lockReciverAddress = document.getElementById("lock_Reciver_Address").value
+    let lockAmount= document.getElementById("lock_Amount").value 
+    let releaseTime= document.getElementById("release_Time").value 
+	let once_lock_amount = (lockAmount/20).toString()
+	let period = 100
+
+	for (var i = 0; i < 20; i++) {
+	let incremet_period = i*period
+	let next_releaseTime = parseInt(releaseTime) + parseInt(incremet_period)
+    contract.methods.lock(lockReciverAddress,once_lock_amount,next_releaseTime).send(
+      {from: account}
+    )}
+
+
+
+  }
 
 </script>
 
