@@ -442,3 +442,7 @@ contract MPC is ERC20, Pausable, Freezable, ERC20Burnable, ERC20Lockable {
         super._beforeTokenTransfer(from, to, amount);
     }
 }
+
+
+
+
