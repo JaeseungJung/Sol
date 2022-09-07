@@ -15,6 +15,12 @@ function add(n) {
     return sum;
 }
 
+// 2부터 30까지 곱하는 함수
+function multiply(n) {
+    var product = 1;
+    for (var i = 2; i <= n; i++) {
+        product *= i;
+    }
 
 
 // 현재 이더리움 블록넘버를 반환하는 함수
