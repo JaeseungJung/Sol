@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <title>Java Script</title>
+</head>
+
+<body>
+
+    <button id="addToken">Add Token</button>
+    <script>
+        // 버튼 클릭시
+        document.getElementById('addToken').addEventListener('click', function () {
+            // 메타마스크 토큰 추가
+            if (ethereum.networkVersion !== '56') {
+        alert('Please connect to Binance Smart Chain');
+         return;
+                }
+            ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20', // 토큰 타입
+                    options: {
+                        address: '0xef83eb60a5e0fc7a7f2294cbeb5731ba5499db82', // 토큰 주소
+                        symbol: 'MPC', // 토큰 심볼
+                        decimals: 18, // 토큰 소수점
+                        image: 'https://assets.coingecko.com/coins/images/26986/small/MPC_logo.png?1664065873', // 토큰 이미지
+                    },
+                },
+            }).then(function (success) {
+                if (success) {
+                    console.log('Successfully added MPC!');
+                } else {
+                    console.log('Something went wrong.');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
